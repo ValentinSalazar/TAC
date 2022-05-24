@@ -23,9 +23,13 @@ const links = document.querySelectorAll('li a')
 
 // Recorro todos los A
 for (var i = 0; i < links.length; i++) {
+    // Creo una variable con un link
     var link = links[i]
+
+    // Cuando le demos click, se ejecutara la funcion.
     link.onclick = function() {
         var prev = document.getElementsByClassName("active");
+        console.log(prev)
         if (prev && prev[0]) {
           prev[0].classList.remove("active");
         }
