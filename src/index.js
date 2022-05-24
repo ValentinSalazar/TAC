@@ -19,3 +19,19 @@ menuBtn.addEventListener('click', () => {
 
 })
 
+
+
+// Obtengo los A de los Li.
+const links = document.querySelectorAll('li a')
+
+// Recorro todos los A
+for (var i = 0; i < links.length; i++) {
+    var link = links[i]
+    link.onclick = function() {
+        var prev = document.getElementsByClassName("active");
+        if (prev && prev[0]) {
+          prev[0].classList.remove("active");
+        }
+        this.classList.add("active");
+      };
+}
