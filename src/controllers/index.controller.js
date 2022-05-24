@@ -14,8 +14,27 @@
 import viewHome from '../views/home.html'
 
 export default () => {
-    const mainElements = document.createElement('div');
-    mainElements.innerHTML = viewHome;
+
+    const mainElements = document.createElement('section');
+    mainElements.innerHTML = viewHome
+
+    const btnClick = mainElements.querySelector('div')
+    const btnFilters = document.querySelector('.box__filters-menu')
+    const aside = document.querySelector('aside')
+    const main = document.querySelector('main')
+
+    btnFilters.addEventListener('click', () => {
+        btnClick.classList.add('menu__btn')
+        main.classList.toggle('main__no-filters')
+
+    })
+
+    btnClick.addEventListener('click', () => {
+        aside.classList.remove('filters-off')
+        btnClick.classList.toggle('menu__btn')
+        main.classList.toggle('main__no-filters')
+    })
+
 
     return mainElements
 }

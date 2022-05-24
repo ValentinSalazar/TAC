@@ -19,7 +19,7 @@ const router = (route) => {
     // en alguna ruta la cual no se encuentra en nuestro proyecto, retornara un aviso por Default.
     switch(route) {
         case "#/": {
-            return main.appendChild(home())
+            return main.appendChild(home()); 
         }
             
         case "#/Prioritarios":
