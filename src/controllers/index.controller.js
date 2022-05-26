@@ -12,7 +12,6 @@
  */
 
 import viewHome from '../views/home.html'
-
 export default () => {
 
     const mainElements = document.createElement('section');
