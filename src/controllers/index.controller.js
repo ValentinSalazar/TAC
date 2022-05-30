@@ -16,7 +16,7 @@ export default () => {
 
     const mainElements = document.createElement('section');
     mainElements.innerHTML = viewHome
-
+    
 
     /* Animacion de filtros */
     const btnClick = mainElements.querySelector('div') // Obtengo el div que hemos creado en el views/home.html
@@ -26,8 +26,10 @@ export default () => {
 
     // EventListener de click al boton de filtros.
     btnFilters.addEventListener('click', () => { 
-        btnClick.classList.add('menu__btn') // Se le agrega la clase menu__btn al div que hemos creado en el views/home.html
-        main.classList.toggle('main__no-filters') // Se le agrega o se le borra la clase main__no-filters al Main.
+        if (!btnClick.classList.contains('menu__btn')) {
+            btnClick.classList.add('menu__btn') // Se le agrega la clase menu__btn al div que hemos creado en el views/home.html
+        }
+        main.classList.add('main__no-filters') // Se le agrega o se le borra la clase main__no-filters al Main.
 
     })
 
