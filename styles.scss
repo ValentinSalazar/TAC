@@ -133,7 +133,6 @@ $primary-font: 'Monserrat';
     margin: 1rem;
     margin-right: 10rem;
     border-left: 0.3rem solid $secondary-color;
-
     label:first-child {
         font-size: 1.8rem;
     }
@@ -146,6 +145,7 @@ $primary-font: 'Monserrat';
         font-weight: 600;
         text-transform: uppercase;
         cursor: pointer;
+        width: 20rem;
 
     }
 
