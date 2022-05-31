@@ -250,6 +250,16 @@ header {
                 border-radius: 0.2rem;
                 width: 30rem;
                 padding: 0.5rem;
+                outline: none;
+                font-size: 1.2rem;
+                color: $secondary-color;
+                transition: 0.3s;
+                &::placeholder {
+                    color: $secondary-color;
+                }
+                &:focus {
+                    transform: scaleX(1.15);
+                }
             }
         }
 
