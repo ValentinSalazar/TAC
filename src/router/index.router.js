@@ -30,6 +30,9 @@ const router = (route) => {
         case "#/Mapa": {
             return main.appendChild(mapa())
         }
+        case "#/Finalizados": {
+            return console.log('finalizados')
+        }
             
         default:
             {
