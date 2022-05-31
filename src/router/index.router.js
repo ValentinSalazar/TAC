@@ -7,7 +7,7 @@
 import home from '../controllers/index.controller.js' // Importo el controlador de home.
 import prioritarios from '../controllers/prioritarios.controller.js' // Importo el controlador de prioritarios
 import finalizados from '../controllers/finalizados.controller.js' // Importo el controlador de finalizados
-import mapa from '../controllers/finalizados.controller.js' // Importo el controlador de mapa
+import mapa from '../controllers/mapa.controller' // Importo el controlador de mapa
 let main = document.querySelector("main") // Le creo un let ya que una constante no se puede modificar.
 
 // Es un Arrow Function que recibe como parametro la ruta que estamos navegando.
@@ -26,6 +26,8 @@ const router = (route) => {
             
         case "#/Prioritarios":
             return console.log("hola,prioritarios")
+        case "#/Mapa":
+            return main.appendChild(mapa())
         default:
             return console.log("404")
     }

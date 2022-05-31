@@ -253,7 +253,7 @@ header {
                 outline: none;
                 font-size: 1.2rem;
                 color: $secondary-color;
-                transition: 0.3s;
+                transition:0.3s;
                 &::placeholder {
                     color: $secondary-color;
                 }
@@ -554,5 +554,22 @@ main {
         font-family: 'Poppins';
         margin-top: 2.5rem;
         font-size: 2rem;
+    }
+}
+
+
+/* SVG */
+.svg__box {
+    width: 50rem;
+    height: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    border: 2px solid $primary-color;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        
     }
 }
