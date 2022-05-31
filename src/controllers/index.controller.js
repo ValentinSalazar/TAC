@@ -25,7 +25,7 @@ export default () => {
     const main = document.querySelector('main') // Obtengo el main del index.html
 
     // EventListener de click al boton de filtros.
-    btnFilters.addEventListener('click', () => { 
+    btnFilters.addEventListener('click', () => {
         if (!btnClick.classList.contains('menu__btn')) {
             btnClick.classList.add('menu__btn') // Se le agrega la clase menu__btn al div que hemos creado en el views/home.html
         }
