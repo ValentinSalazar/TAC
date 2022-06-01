@@ -11,6 +11,7 @@
     en el archivo.
  */
 
+/* Imports */
 import viewHome from '../views/home.html'
 export default () => {
 
@@ -18,25 +19,24 @@ export default () => {
     mainElements.innerHTML = viewHome
     
 
-    /* Animacion de filtros */
-    const btnClick = mainElements.querySelector('div') // Obtengo el div que hemos creado en el views/home.html
+    /* Variables */
+    const btnClickMain = mainElements.querySelector('div') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
     const main = document.querySelector('main') // Obtengo el main del index.html
 
-    // EventListener de click al boton de filtros.
-    btnFilters.addEventListener('click', () => {
-        if (!btnClick.classList.contains('menu__btn')) {
-            btnClick.classList.add('menu__btn') // Se le agrega la clase menu__btn al div que hemos creado en el views/home.html
+    /* Events Listener */
+    btnFilters.addEventListener('click', () => { // EventListener de click al boton de filtros.
+        if (!btnClickMain.classList.contains('menu__btn')) {
+            btnClickMain.classList.add('menu__btn') // Se le agrega la clase menu__btn al div que hemos creado en el views/home.html
         }
         main.classList.add('main__no-filters') // Se le agrega o se le borra la clase main__no-filters al Main.
 
     })
 
-    // EventListener de click al boton del main.
-    btnClick.addEventListener('click', () => { 
+    btnClickMain.addEventListener('click', () => { // EventListener de click al boton del main.
         aside.classList.remove('filters-off')
-        btnClick.classList.toggle('menu__btn')
+        btnClickMain.classList.toggle('menu__btn')
         main.classList.toggle('main__no-filters')
     })
 

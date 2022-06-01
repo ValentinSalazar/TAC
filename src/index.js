@@ -1,27 +1,33 @@
-import './styles.css'
-
-import {router} from './router/index.router.js'
+/* Imports */
+import './styles.css' // Importamos todos los estilos.
+import {router} from './router/index.router.js' // Importamos la funcion router.
 router(window.location.hash)
-window.addEventListener('hashchange', () => {
+window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pagina.
     router(window.location.hash)
 })
 
 
-// Obtengo las etiquetas del HTML y le aplico el evento de click.
+/* Variables */
 const menuBtn = document.querySelector('.box__filters-menu')
 const aside = document.querySelector('.filters')
 const main = document.querySelector('main')
+
+const links = document.querySelectorAll('li a') // Obtengo los A de los Li.
+
+const btnRegister = document.querySelector('.main__button-register');
+
+/* Events Listener */
 menuBtn.addEventListener('click', () => {
+  // Cuando el usuario da click en la X de
     aside.classList.remove('box__filters-menu')
     aside.classList.add('filters-off')
 
 })
 
-// Obtengo los A de los Li.
-const links = document.querySelectorAll('li a')
 
-// Recorro todos los A
-for (var i = 0; i < links.length; i++) {
+for (var i = 0; i < links.length; i++) { // Recorro todos los A
+  // Coloca un Underline debajo de los A cuando este sea clickeado.
+
     // Creo una variable con un link
     var link = links[i]
 
@@ -35,3 +41,5 @@ for (var i = 0; i < links.length; i++) {
         this.classList.add("active");
       };
 }
+
+
