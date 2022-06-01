@@ -2,6 +2,7 @@
 @import './variables.scss';  // Trae las variables y los componentes con sus respectivos estilos desde otro archivo sass.
 @import './login'; // Trae los estilos del login.
 @import './mapa'; // Trae los estilos de la sección mapas.
+@import './finalizados'; // Trae todos los estilos de la seccion finalizados.
 // Reset default values
 * {
     margin: 0;
@@ -263,4 +264,3 @@ main {
     margin-left: 0;
     transition: 0.5s;
 }
-

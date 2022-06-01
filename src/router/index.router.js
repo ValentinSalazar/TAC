@@ -28,14 +28,14 @@ const router = (route) => {
         case "#/": {
             return main.appendChild(home()); 
         }
-            
-        case "#/Prioritarios":
+        case "#/Prioritarios": {
             return console.log("hola,prioritarios")
-        case "#/Mapa": {
-            return main.appendChild(mapa())
         }
         case "#/Finalizados": {
-            return console.log('finalizados')
+            return main.appendChild(finalizados());
+        }
+        case "#/Mapa": {
+            return main.appendChild(mapa())
         }
             
         default:

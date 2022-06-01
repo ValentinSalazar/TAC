@@ -33,9 +33,11 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
 
     // Cuando le demos click, se ejecutara la funcion.
     link.onclick = function() {
+      //  Le aplica una función a cada uno los elementos cada vez que se haga click.
         var prev = document.getElementsByClassName("active");
-        console.log(prev)
+
         if (prev && prev[0]) {
+          console.log(prev,prev[0])
           prev[0].classList.remove("active");
         }
         this.classList.add("active");
