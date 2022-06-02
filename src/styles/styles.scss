@@ -260,3 +260,49 @@ main {
     margin-left: 20%;
     transition: 0.5s;
 }
+
+@media screen and (max-width:480px) {
+    header {
+        nav {
+            .menu__logo {
+                margin-right: 4rem;
+            }
+            .menu__search {
+                input[type=search] {
+                    width: 10rem;
+                    &:focus {
+                    }
+                }
+            }
+            .menu__responsive {
+                margin-left: 3rem;
+                align-self: center;
+                width: 2.4rem;
+                height: 2.4rem;
+                span {
+                    color: $secondary-color;
+                    cursor: pointer;
+                    &:active {
+                        opacity: 0.5;
+                        box-shadow: $first-shadow;
+                    }
+                }
+            }
+            .menu__pages {
+                display: none;
+            }
+        }
+    }
+    .menu__btn {
+        display: none;
+    }
+
+    main {
+        .main__table {
+            margin-left: 0;
+        }
+        .main__button-register {
+            margin-left: 0;
+        }
+    }
+}
