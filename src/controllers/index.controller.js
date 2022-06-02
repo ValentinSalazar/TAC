@@ -20,25 +20,26 @@ export default () => {
     
 
     /* Variables */
-    const btnClickMain = mainElements.querySelector('div') // Obtengo el div que hemos creado en el views/home.html
+    const btnClickMain = mainElements.querySelector('.menu__btn') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
     const main = document.querySelector('main') // Obtengo el main del index.html
-
+    const homeWindow = window.location.hash; // Obtengo el Hash del Inicio.
     /* Events Listener */
-    btnFilters.addEventListener('click', () => { // EventListener de click al boton de filtros.
-        if (!btnClickMain.classList.contains('menu__btn')) {
-            btnClickMain.classList.add('menu__btn') // Se le agrega la clase menu__btn al div que hemos creado en el views/home.html
-        }
-        main.classList.add('main__no-filters') // Se le agrega o se le borra la clase main__no-filters al Main.
-
-    })
-
-    btnClickMain.addEventListener('click', () => { // EventListener de click al boton del main.
-        aside.classList.remove('filters-off')
-        btnClickMain.classList.toggle('menu__btn')
-        main.classList.toggle('main__no-filters')
-    })
+    if (homeWindow == "" || homeWindow == "#/") {
+        btnClickMain.addEventListener('click',() => {
+            main.classList.toggle('main__with-filters')
+            aside.classList.remove('filters-off')
+            aside.classList.add('filters')
+            btnClickMain.classList.remove('menu__btn')
+        })
+    
+        btnFilters.addEventListener('click', () =>{
+            main.classList.remove('main__with-filters')
+            aside.classList.add('filters-off')
+            btnClickMain.classList.toggle('menu__btn')
+        })
+    }
 
 
     return mainElements

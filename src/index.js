@@ -8,21 +8,12 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
 
 
 /* Variables */
-const menuBtn = document.querySelector('.box__filters-menu')
-const aside = document.querySelector('.filters')
+const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
 
 const links = document.querySelectorAll('li a') // Obtengo los A de los Li.
 
 const btnRegister = document.querySelector('.main__button-register');
-
-/* Events Listener */
-menuBtn.addEventListener('click', () => {
-  // Cuando el usuario da click en la X de
-    aside.classList.remove('box__filters-menu')
-    aside.classList.add('filters-off')
-
-})
 
 
 for (var i = 0; i < links.length; i++) { // Recorro todos los A
@@ -37,7 +28,6 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
         var prev = document.getElementsByClassName("active");
 
         if (prev && prev[0]) {
-          console.log(prev,prev[0])
           prev[0].classList.remove("active");
         }
         this.classList.add("active");

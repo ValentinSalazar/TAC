@@ -161,18 +161,16 @@ header {
 
 /* MAIN Content */
 main {
-    width: 100%-20;
+    width: 100%;
     height: 100%;
     top: 80px;
     position: absolute;
-    margin-left: 20%;
+    transition: 0.5s;
     .main__button-register {
         background-color: $primary-color;
         color: $secondary-color;
-        position: relative;
-        float: left;
-        left: 8rem;
-        top: 5rem;
+        margin-top: 5rem;
+        margin-left: 10rem;
         outline: none;
         padding: 1rem;
         border: none;
@@ -197,12 +195,10 @@ main {
 
 
     .main__table {
-        width: 75%;
+        width:85%;
         height: 100%;
-        position: relative;
-        top:10rem;
-        right: 5rem;
-
+        margin-left: 10rem;
+        margin-top: 1rem;
         th {
             padding: 0 1rem;
             font-size: 1.6rem;
@@ -257,10 +253,10 @@ main {
     }
 }
 
-.main__no-filters {
-    width: 100%;
+.main__with-filters {
+    width: 80%;
     height: 100%;
     position: absolute;
-    margin-left: 0;
+    margin-left: 20%;
     transition: 0.5s;
 }
