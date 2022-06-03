@@ -25,6 +25,7 @@ export default () => {
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
     const main = document.querySelector('main') // Obtengo el main del index.html
     const homeWindow = window.location.hash; // Obtengo el Hash del Inicio.
+    const btnRegister = mainElements.querySelector('.main__button-register')
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         btnClickMain.addEventListener('click',() => {
@@ -39,8 +40,12 @@ export default () => {
             aside.classList.add('filters-off')
             btnClickMain.classList.toggle('menu__btn')
         })
-    }
+        btnRegister.addEventListener('click', () =>{
+            const form = document.createElement('form')
+            
+        })
 
+    }
 
     return mainElements
 }
