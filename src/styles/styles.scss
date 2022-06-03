@@ -332,7 +332,7 @@ main {
             td:nth-child(5) {
                 position: relative;
                 bottom: -30px;
-                &:hover {
+                &:active {
                     width: 20rem;
                     height: 10rem;
                 }
