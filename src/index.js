@@ -12,6 +12,8 @@ const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
 
 const links = document.querySelectorAll('li a') // Obtengo los A de los Li.
+const containerLinks = document.querySelector('.menu__pages')
+const menuResponsive = document.querySelector('.menu__responsive')
 
 const btnRegister = document.querySelector('.main__button-register');
 
@@ -34,4 +36,8 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
       };
 }
 
-
+/* Responsive */
+var mediaqueryList = window.matchMedia("(min-width: 480px)");
+if (mediaqueryList) {
+  menuResponsive.appendChild(containerLinks)
+}

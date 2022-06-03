@@ -270,8 +270,6 @@ main {
             .menu__search {
                 input[type=search] {
                     width: 10rem;
-                    &:focus {
-                    }
                 }
             }
             .menu__responsive {
@@ -300,9 +298,80 @@ main {
     main {
         .main__table {
             margin-left: 0;
+            tbody {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+            }
+            th {
+                margin-top: 0.5rem;
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                font-size: 1rem;
+            }
+            td {
+                overflow-x: scroll;
+                height: 4rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            td:nth-child(2) {
+                position: relative;
+                bottom: -10px;
+            }
+            td:nth-child(3) {
+                position: relative;
+                bottom: -25px;
+            }
+            td:nth-child(4) {
+                position: relative;
+                bottom: -30px;
+            }
+            td:nth-child(5) {
+                position: relative;
+                bottom: -30px;
+                &:hover {
+                    width: 20rem;
+                    height: 10rem;
+                }
+            }
+            td:nth-child(6) {
+                position: relative;
+                bottom: -30px;
+            }
+            td:last-of-type{
+                overflow: hidden;
+                position: relative;
+                bottom: -35px;
+            }
         }
         .main__button-register {
             margin-left: 0;
+        }
+    }
+}
+
+@media screen and (min-width:481px) {
+    header {
+        nav {
+            .menu__logo {
+                margin-right: 4rem;
+            }
+            .menu__search {
+                input[type=search] {
+                    width: 10rem;
+                }
+            }
+            .menu__responsive {
+                span {
+                    display: none;
+                }
+            }
+            .menu__pages {
+                display: none;
+            }
         }
     }
 }
