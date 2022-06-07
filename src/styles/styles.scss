@@ -359,18 +359,13 @@ main {
             .menu__logo {
                 margin-right: 4rem;
             }
-            .menu__search {
-                input[type=search] {
-                    width: 10rem;
-                }
-            }
             .menu__responsive {
                 span {
                     display: none;
                 }
             }
-            .menu__pages {
-                display: none;
+            .menu__responsive {
+                display: flex;
             }
         }
     }
