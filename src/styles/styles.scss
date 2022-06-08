@@ -268,7 +268,9 @@ main {
     header {
         nav {
             .menu__logo {
-                margin-right: 4rem;
+                margin-right: 2rem;
+                transform: scale(0.75);
+                margin-left: -2rem;
             }
             .menu__search {
                 input[type=search] {
