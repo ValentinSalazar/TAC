@@ -8,6 +8,7 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
 
 
 /* Variables */
+const menu = document.querySelector('.menu')
 const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
 
@@ -37,7 +38,7 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
 }
 
 /* Responsive */
-var mediaqueryList = window.matchMedia("(min-width: 480px)");
-if (mediaqueryList) {
-  menuResponsive.appendChild(containerLinks)
-}
+menuResponsive.addEventListener('click', () => {
+  main.appendChild(containerLinks)
+  containerLinks.classList.toggle('menu__nav-responsive')
+})
