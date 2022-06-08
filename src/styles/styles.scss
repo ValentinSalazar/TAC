@@ -307,6 +307,8 @@ main {
         }  
     }
     main {
+        overflow-x: scroll;
+        width: 100%;
         .main__table {
             margin-left: 0;
             tbody {
