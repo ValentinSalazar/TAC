@@ -272,43 +272,218 @@ main {
 
 
 .form__container {
-    padding: 5%;
     border-radius: 0.5rem;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     width: 100%;
+    margin: 30px auto;
     max-width: 600px;
     background-color: $primary-color;
-    margin: 0 auto;
+    box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.5);
 }
 .form__quit {
-    height: 40px;
-    width: 40px;
-    background-color: #000000;
-    z-index: 3;
+    height: 30px;
+    width: 30px;
+    align-self: end;
+    cursor: pointer;
+    margin: 10px 10px 0 ;
+    span {
+        transform: scale(1.5);
+        text-align: center;
+        line-height: 30px;
+        width: 100%;
+        color: #fff;
+        transition: 0.3s;
+        &:active {
+            opacity: 0.5;
+        }
+    }
 }
 form {
+    padding: 5%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    box-shadow: 0px 0px 20px rgba($color: #000000, $alpha: 0.5);
     label {
         @include title-h3();
         text-align: left;
-        margin-left: 30px;
+        height: 30px;
     }
     input {
         align-self: center;
         width: 90%;
         height: 3rem;
         margin: 0.5rem;
+        outline: none;
+        border-radius: 0.5rem;
+        border: none;
+        padding-left: 1rem;
     }
 }
-.none {
-    display: none;
+.form__first-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    .form__numero-nota {
+        display: flex;
+        flex-direction: column;
+        label {
+            text-align: center;
+        }
+        input[type=number] {
+            font-size: 1.5rem;
+            width: 50%;
+            height: 4rem;
+            box-shadow: $first-shadow;
+        }
+    }
+    .form__date {
+        display: flex;
+        flex-direction: column;
+        .form__date-box {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            input[type=date] {
+                font-size: 1rem;
+                height: 4rem;
+                cursor: pointer;
+                box-shadow: $first-shadow;
+            }
+            button {
+                width: 6rem;
+                height: 4rem;
+                border-radius: 0.5rem;
+                border: none;
+                font-size: 1rem;
+                color: #fff;
+                background-color: #ff6a53;
+                box-shadow: $first-shadow;
+                cursor: pointer;
+                transition: 0.3s;
+                &:hover {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+    
 }
+.form__sec-div {
+    margin: 10px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    select {
+        width: 75%;
+        height: 4rem;
+        padding: 1rem;
+        border: none;
+        outline: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+    }
+    .form__area {
+        width: 50%;
+        margin: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        select {
+            font-size: 1rem;
+            box-shadow: $first-shadow;
+        }
+    }
+    .form__location {
+        align-items: center;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        select {
+            font-size: 1rem;
+            box-shadow: $first-shadow;
+        }
+    }
+    
+    
+    
+    
+}
+.form__third-div {
+    margin: 10px 0 10px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .form__solicitante {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        label {
+            text-align: center;
+        }
+        input {
+            height: 100%;
+            width: 25rem;
+        }
+    }
+    .form__estado {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    textarea {
+        height: 100%;
+        width: 25rem;
+        font-size: 1.5rem;
+        border: none;
+        outline: none;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        box-shadow: $first-shadow;
+        &::placeholder {
+            font-size: 0.8rem;
+        }
+    }
+    
+}
+
+.form__buttons {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    button {
+        border: none;
+        outline: none;
+        width: 25%;
+        height: 3rem;
+        cursor: pointer;
+        box-shadow: $first-shadow;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: #fff;
+        transition: 0.3s;
+        &:hover {
+            transform: scale(1.2);
+        }
+        &:active {
+            opacity: 0.8;
+        }
+    }
+    button:nth-child(1) {
+        background-color: #D64933;
+    }
+    button:nth-child(2) {
+        background-color: #33a575;
+    }
+}
+
+
 
 /* Mobiles */
 @media screen and (max-width:480px) and (orientation:portrait){

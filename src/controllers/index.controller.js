@@ -26,6 +26,8 @@ export default () => {
     const main = document.querySelector('main') // Obtengo el main del index.html
     const homeWindow = window.location.hash; // Obtengo el Hash del Inicio.
     const btnRegister = mainElements.querySelector('.main__button-register')
+    const form = mainElements.querySelector('.none')
+    const BtnformQuit = mainElements.querySelector('.form__quit')
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         btnClickMain.addEventListener('click',() => {
@@ -41,8 +43,12 @@ export default () => {
             btnClickMain.classList.toggle('menu__btn')
         })
         btnRegister.addEventListener('click', () =>{
-            const form = document.createElement('form')
-            
+            form.classList.remove('none')
+            form.classList.add('form__container')
+        })
+        BtnformQuit.addEventListener('click', () =>{
+            form.classList.remove('form__container')
+            form.classList.add('none')
         })
 
     }

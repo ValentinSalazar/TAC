@@ -5,43 +5,63 @@
 </div>
 <button class="main__button-register">Crear Registro</button>
 
-<div class="form__container">
+<div class="none">
     <div class="form__quit">
-        <span></span>
-        <span></span>
+        <span class="material-symbols-outlined">
+            close
+        </span>
     </div>
-    <form class="">
-        <label for="Nº">Nº de NOTA</label>
-        <input type="number" name="" id="">
-    
-        <label for="Fecha">Fecha de ENTRADA</label>
-        <div class="form__date">
-            <input type="date" name="" id="">
-            <button class="form__button-today">HOY</button>
+    <form>
+        <div class="form__first-div">
+            <div class="form__numero-nota">
+                <label for="Nº">Nº de NOTA</label>
+                <input type="number" name="" id="" placeholder="...">
+            </div>
+
+            <div class="form__date">
+                <label for="Fecha">Fecha de ENTRADA</label>
+                <div class="form__date-box">
+                    <input type="date" name="" id="">
+                    <button class="form__button-today">HOY</button>
+                </div>
+            </div>
         </div>
-        
-    
-        <label for="Area Responsable">Area Responsable</label>
-        <select name="" id="">
-            <option value=""></option>
-        </select>
-    
-        <label for="Localidad">Localidad</label>
-        <select name="" id="">
-            <option value=""></option>
-        </select>
-    
-        <label for="Solicitante">Solicitante</label>
-        <input type="text">
-    
-        <label for="Estado">Estado</label>
-        <textarea name="" id="" cols="30" rows="5" placeholder="..."></textarea>
-    
-        <div class="form__butttons">
-            <button>Agregar</button>
+
+
+        <div class="form__sec-div">
+            <div class="form__area">
+                <label for="Area Responsable">Area Responsable</label>
+                <select name="" id="">
+                    <option value="">Institucionales</option>
+                </select>
+            </div>
+
+            <div class="form__location">
+                <label for="Localidad">Localidad</label>
+                <select name="" id="">
+                    <option value="">Buenos Aires</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form__third-div">
+            <div class="form__solicitante">
+                <label for="Solicitante">Solicitante</label>
+                <textarea name="" id="" cols="30" rows="5" placeholder="..."></textarea>
+            </div>
+            <div class="form__estado">
+                <label for="Estado">Estado</label>
+                <textarea name="" id="" cols="30" rows="5" placeholder="..."></textarea>
+            </div>
+        </div>
+
+
+        <div class="form__buttons">
             <button>Limpiar</button>
+            <button>Agregar</button>
         </div>
-        
+
     </form>
 </div>
 <table class="main__table">
@@ -199,4 +219,3 @@
         </td>
     </tr>
 </table>
-
