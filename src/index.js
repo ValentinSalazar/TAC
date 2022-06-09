@@ -38,7 +38,7 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
 }
 
 /* Responsive */
-menuResponsive.addEventListener('click', () => {
+menuResponsive.addEventListener('click', () => { // Terminarlo.
   main.appendChild(containerLinks)
   containerLinks.classList.toggle('menu__nav-responsive')
 })
