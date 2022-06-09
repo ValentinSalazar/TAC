@@ -28,6 +28,11 @@ export default () => {
     const btnRegister = mainElements.querySelector('.main__button-register')
     const form = mainElements.querySelector('.none')
     const BtnformQuit = mainElements.querySelector('.form__quit')
+    const btnToday = mainElements.querySelector('.form__button-today')
+    const btnForms = mainElements.querySelector('.form__buttons') // Caja de los botones Limpiar y Agregar. Debo acceder a sus hijos.
+    const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
+    const dateToday = Date();
+    console.log(dateToday)
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         btnClickMain.addEventListener('click',() => {
@@ -50,7 +55,15 @@ export default () => {
             form.classList.remove('form__container')
             form.classList.add('none')
         })
-
+        btnToday.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (boxDate.children[0].value == '') { // Terminar de hacer el ingreso de la fecha al input type=date.
+                alert()
+                boxDate.children[0].value == dateToday;
+            }
+            console.log(boxDate.children[0].value)
+        })
+        
     }
 
     return mainElements
