@@ -31,7 +31,7 @@ export default () => {
     const numeroNota = mainElements.querySelector('.form__numero-nota')
     const btnToday = mainElements.querySelector('.form__button-today')
     const area = mainElements.querySelector('.form__area')
-    const firstSelect = mainElements.querySelector('.form__area select')
+    const firstSelect = mainElements.querySelector('.form__area input')
     const secondSelect = mainElements.querySelector('.form__location select')
     const solicitante = mainElements.querySelector('.form__solicitante textarea')
     const estado = mainElements.querySelector('.form__estado textarea')
@@ -39,7 +39,7 @@ export default () => {
     const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
     const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día ycon substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
-    const localidades = ["CABA", "Buenos Aires","La Pampa","Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones", 
+    const localidades = ["...","CABA", "Buenos Aires","La Pampa","Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones", 
                         "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
                         "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
     
@@ -89,10 +89,11 @@ export default () => {
             e.preventDefault(); // Boton Limpiar
             numeroNota.children[1].value = ''; // Limpio los numeros de notas.
             boxDate.children[0].value = ""; // Limpio la fecha.
-            firstSelect.children[0].textContent = ""; // Limpio el primer select
-            secondSelect.children[0].innerHTML = ""; // Limpio el segundo select.
+            firstSelect.value = "";// Limpio el primer select
+            secondSelect.innerHTML = ""; // Limpio el segundo select.
             solicitante.value = "";
             estado.value = '';
+            agregarLocalidades();
         })
         btnForms.children[1].addEventListener('click', (e) => {
             e.preventDefault(); // Boton agregar.
