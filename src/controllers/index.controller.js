@@ -37,7 +37,7 @@ export default () => {
     const estado = mainElements.querySelector('.form__estado textarea')
     const btnForms = mainElements.querySelector('.form__buttons') // Caja de los botones Limpiar y Agregar. Debo acceder a sus hijos.
     const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
-    const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día ycon substring le indicamos desde que indice
+    const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
     const localidades = ["...","CABA", "Buenos Aires","La Pampa","Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones", 
                         "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
@@ -58,6 +58,12 @@ export default () => {
 
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
+        // Reseteo los estilos para que no se superpongan.
+        main.classList.remove('main__with-filters')
+        aside.classList.remove('filters')
+        aside.classList.add('filters-off')
+
+    
         btnClickMain.addEventListener('click', () => {
             main.classList.toggle('main__with-filters')
             aside.classList.remove('filters-off')

@@ -28,7 +28,7 @@ const router = (route) => {
             return main.appendChild(home()); 
         }
         case "#/Prioritarios": {
-            return console.log("hola,prioritarios")
+            return main.appendChild(prioritarios())
         }
         case "#/Finalizados": {
             return main.appendChild(finalizados());
