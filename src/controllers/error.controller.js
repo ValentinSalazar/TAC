@@ -1,5 +1,4 @@
 import error from '../views/error.html'
-
 export default () => {
     const errorElements = document.createElement('section')
     errorElements.innerHTML = error;
@@ -8,6 +7,7 @@ export default () => {
     errorElements.style.flexDirection = "column"
     errorElements.style.alignItems = "center"
     errorElements.style.marginTop = "2rem"
+    errorElements.style.fontFamily = "Poppins"
     const title = errorElements.querySelector('h1')
     title.style.fontSize = "3rem"
 
