@@ -50,3 +50,4 @@ menuLogo.addEventListener('click', () => {
   // Redirecciona al usuario cuando haga click en el logo.
   document.location.href = "#"
 })
+

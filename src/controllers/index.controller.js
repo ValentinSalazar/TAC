@@ -39,9 +39,13 @@ export default () => {
     const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
     const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
+    const cleanBtn = btnForms.children[0]
+    const addBtn = btnForms.children[1]
     const localidades = ["...", "CABA", "Buenos Aires", "La Pampa", "Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones",
         "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
         "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
+
+    const datosForms = {}
 
 
     agregarLocalidades();
@@ -62,8 +66,6 @@ export default () => {
         solicitante.value = "";
         estado.value = '';
     }
-
-
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         // Reseteo los estilos para que no se superpongan.
@@ -109,6 +111,38 @@ export default () => {
         btnForms.children[1].addEventListener('click', (e) => {
             e.preventDefault(); // Boton agregar.
 
+        })
+        addBtn.addEventListener('click', () => {
+            const nota = parseInt(numeroNota.children[1].value)
+            const fecha = boxDate.children[0].value
+            const areaResponsable = firstSelect.value
+
+            const numero = secondSelect.value;
+            const localidad = localidades[numero] 
+
+            const solicitanteForm = solicitante.value
+            const estadoForm = estado.value
+
+            const datosForms = {
+                nota,
+                fecha,
+                areaResponsable, 
+                numero, 
+                localidad, 
+                solicitanteForm, 
+                estadoForm
+            }
+            
+            const myDataJson = JSON.stringify(datosForms)
+            console.log(myDataJson);
+            
+            
+            fetch('http://localhost:3000/registers', {
+                method: 'Post',
+                body: myDataJson
+            })
+
+            
         })
     }
     return mainElements
