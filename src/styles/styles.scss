@@ -186,6 +186,9 @@ main {
             opacity: 0.8;
             transform: scale(1.05);
         }
+        &:active {
+            opacity: 0.5;
+        }
     }
 
     .menu__btn {
@@ -246,7 +249,9 @@ main {
             @include table-icons();
             background-color: #FF8811;
         }
-
+        div:active {
+            opacity: 0.5;
+        }
         span {
             @include table-icons--center();
         }
@@ -364,6 +369,9 @@ form {
                 transition: 0.3s;
                 &:hover {
                     transform: scale(1.1);
+                }
+                &:active {
+                    opacity: 0.5;
                 }
             }
         }
@@ -487,6 +495,10 @@ form {
     }
 }
 
+.blanco {
+    list-style: none;
+    color: $primary-color;
+}
 
 
 /* Mobiles */

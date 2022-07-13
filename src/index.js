@@ -11,13 +11,13 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
 const menu = document.querySelector('.menu')
 const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
-
 const links = document.querySelectorAll('li a') // Obtengo los A de los Li.
 const containerLinks = document.querySelector('.menu__pages')
 const menuResponsive = document.querySelector('.menu__responsive')
 
 const btnRegister = document.querySelector('.main__button-register');
-
+const arrayLi = containerLinks.children
+const menuLogo = document.querySelector('.menu__logo')
 
 for (var i = 0; i < links.length; i++) { // Recorro todos los A
   // Coloca un Underline debajo de los A cuando este sea clickeado.
@@ -39,6 +39,14 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
 
 /* Responsive */
 menuResponsive.addEventListener('click', () => { // Terminarlo.
-  main.appendChild(containerLinks)
-  containerLinks.classList.toggle('menu__nav-responsive')
+  menu.appendChild(containerLinks)
+  containerLinks.classList.toggle('menu__pages')
+  for (i = 0; i < arrayLi.length; i++) {
+    arrayLi[i].classList.add('blanco')
+  }
+})
+
+menuLogo.addEventListener('click', () => {
+  // Redirecciona al usuario cuando haga click en el logo.
+  document.location.href = "#"
 })
