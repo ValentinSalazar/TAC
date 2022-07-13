@@ -39,10 +39,10 @@ export default () => {
     const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
     const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
-    const localidades = ["...","CABA", "Buenos Aires","La Pampa","Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones", 
-                        "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
-                        "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
-    
+    const localidades = ["...", "CABA", "Buenos Aires", "La Pampa", "Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones",
+        "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
+        "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
+
 
     agregarLocalidades();
     function agregarLocalidades() {
@@ -53,7 +53,15 @@ export default () => {
             secondSelect.appendChild(option)
         }
     }
-    
+
+    function limpiarCampos() {
+        numeroNota.children[1].value = ''; // Limpio los numeros de notas.
+        boxDate.children[0].value = ""; // Limpio la fecha.
+        firstSelect.value = "";// Limpio el primer select
+        secondSelect.innerHTML = ""; // Limpio el segundo select.
+        solicitante.value = "";
+        estado.value = '';
+    }
 
 
     /* Events Listener */
@@ -63,7 +71,7 @@ export default () => {
         aside.classList.remove('filters')
         aside.classList.add('filters-off')
 
-    
+
         btnClickMain.addEventListener('click', () => {
             main.classList.toggle('main__with-filters')
             aside.classList.remove('filters-off')
@@ -83,6 +91,7 @@ export default () => {
         BtnformQuit.addEventListener('click', () => {
             form.classList.remove('form__container')
             form.classList.add('none')
+            limpiarCampos();
         })
         btnToday.addEventListener('click', (e) => {
             e.preventDefault();
@@ -93,14 +102,10 @@ export default () => {
 
         btnForms.children[0].addEventListener('click', (e) => {
             e.preventDefault(); // Boton Limpiar
-            numeroNota.children[1].value = ''; // Limpio los numeros de notas.
-            boxDate.children[0].value = ""; // Limpio la fecha.
-            firstSelect.value = "";// Limpio el primer select
-            secondSelect.innerHTML = ""; // Limpio el segundo select.
-            solicitante.value = "";
-            estado.value = '';
+            limpiarCampos();
             agregarLocalidades();
         })
+        
         btnForms.children[1].addEventListener('click', (e) => {
             e.preventDefault(); // Boton agregar.
 
