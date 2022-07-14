@@ -133,13 +133,12 @@ export default () => {
                 solicitanteForm, 
                 estadoForm
             }
-            
-            console.log(myDataJson);
+            console.log(console.log(datosForms));
 
 
             fetch(url, {
                 method: 'post',
-                body: myDataJson
+                body: datosForms
             }).then(x => console.log('Datos enviados.'))
         })
     }
