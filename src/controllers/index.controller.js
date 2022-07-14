@@ -114,7 +114,8 @@ export default () => {
             agregarLocalidades();
         })
         
-        addBtn.addEventListener('click', () => {
+        addBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             let nota = parseInt(numeroNota.children[1].value)
             let fecha = boxDate.children[0].value
             let areaResponsable = firstSelect.value
