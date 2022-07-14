@@ -132,7 +132,7 @@ export default () => {
                 solicitanteForm, 
                 estadoForm
             }
-            cconsole.log(datosForms);
+            console.log(datosForms);
 
             fetch(url, {
                 method: 'post',
