@@ -136,8 +136,8 @@ export default () => {
 
             fetch(url, {
                 method: 'POST',
-                body: JSON.stringify(datosForms),
-                headers: {"Content-Type": "application/json; charset=UTF-8"}
+                headers: {"Content-Type": "application/json; charset=UTF-8"},
+                body: JSON.stringify(datosForms)
             }).then(x => console.log('Datos enviados.'))
         })
     }
