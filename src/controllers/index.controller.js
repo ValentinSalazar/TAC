@@ -114,17 +114,17 @@ export default () => {
 
         })
         addBtn.addEventListener('click', () => {
-            const nota = parseInt(numeroNota.children[1].value)
-            const fecha = boxDate.children[0].value
-            const areaResponsable = firstSelect.value
+            let nota = parseInt(numeroNota.children[1].value)
+            let fecha = boxDate.children[0].value
+            let areaResponsable = firstSelect.value
 
-            const numero = secondSelect.value;
-            const localidad = localidades[numero] 
+            let numero = secondSelect.value;
+            let localidad = localidades[numero] 
 
-            const solicitanteForm = solicitante.value
-            const estadoForm = estado.value
+            let solicitanteForm = solicitante.value
+            let estadoForm = estado.value
 
-            const datosForms = {
+            let datosForms = {
                 nota,
                 fecha,
                 areaResponsable, 
@@ -132,11 +132,12 @@ export default () => {
                 solicitanteForm, 
                 estadoForm
             }
-            console.log(datosForms);
+            
+            let datosFormsJSON = JSON.stringify(datosForms)
 
             fetch(url, {
                 method: 'post',
-                body: datosForms
+                body: datosFormsJSON
             }).then(x => console.log('Datos enviados.'))
         })
     }
