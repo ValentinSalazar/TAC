@@ -132,11 +132,11 @@ export default () => {
                 solicitanteForm, 
                 estadoForm
             }
-            console.log(console.log(datosForms));
+            cconsole.log(datosForms);
 
             fetch(url, {
                 method: 'post',
-                body: {nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm }
+                body: datosForms
             }).then(x => console.log('Datos enviados.'))
         })
     }
