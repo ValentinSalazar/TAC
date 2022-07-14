@@ -134,10 +134,9 @@ export default () => {
                 estadoForm
             }
             
-            const myDataJson = JSON.stringify(datosForms)
             console.log(myDataJson);
 
-            
+
             fetch(url, {
                 method: 'post',
                 body: myDataJson
