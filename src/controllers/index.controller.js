@@ -128,7 +128,6 @@ export default () => {
                 nota,
                 fecha,
                 areaResponsable, 
-                numero, 
                 localidad, 
                 solicitanteForm, 
                 estadoForm
@@ -137,7 +136,7 @@ export default () => {
 
             fetch(url, {
                 method: 'post',
-                body: datosForms
+                body: {nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm }
             }).then(x => console.log('Datos enviados.'))
         })
     }
