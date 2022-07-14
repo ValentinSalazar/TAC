@@ -135,7 +135,6 @@ export default () => {
             }
             console.log(console.log(datosForms));
 
-
             fetch(url, {
                 method: 'post',
                 body: datosForms
