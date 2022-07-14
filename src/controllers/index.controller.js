@@ -142,7 +142,7 @@ export default () => {
             }).then(x => console.log('Datos enviados.'))
 
             limpiarCampos();
-            formAdded();
+            console.log('Registro agregado éxitosamente.');
         })
     }
     return mainElements
