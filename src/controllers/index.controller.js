@@ -132,12 +132,12 @@ export default () => {
                 solicitanteForm, 
                 estadoForm
             }
-            
-            let datosFormsJSON = JSON.stringify(datosForms)
+        
 
             fetch(url, {
-                method: 'post',
-                body: datosFormsJSON
+                method: 'POST',
+                body: JSON.stringify(datosForms),
+                headers: {"Content-Type": "application/json; charset=UTF-8"}
             }).then(x => console.log('Datos enviados.'))
         })
     }
