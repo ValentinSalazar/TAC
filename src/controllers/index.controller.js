@@ -20,7 +20,7 @@ export default () => {
 
 
     /* Variables */
-    const url = 'http://localhost:8000/api/registers'
+    const url = 'https://tac-api-2022.herokuapp.com/api/registers'
     const btnClickMain = mainElements.querySelector('.menu__btn') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
