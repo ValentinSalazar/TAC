@@ -46,6 +46,7 @@ export default () => {
         "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
         "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
 
+    
     const datosForms = {}
 
 
@@ -57,6 +58,10 @@ export default () => {
             option.innerHTML = localidades[i];
             secondSelect.appendChild(option)
         }
+    }
+
+    function formAdded() {
+        console.warn('Registro agregado con éxito.')
     }
 
     function limpiarCampos() {
@@ -109,10 +114,6 @@ export default () => {
             agregarLocalidades();
         })
         
-        btnForms.children[1].addEventListener('click', (e) => {
-            e.preventDefault(); // Boton agregar.
-
-        })
         addBtn.addEventListener('click', () => {
             let nota = parseInt(numeroNota.children[1].value)
             let fecha = boxDate.children[0].value
@@ -132,13 +133,16 @@ export default () => {
                 solicitanteForm, 
                 estadoForm
             }
-        
+            console.log(datosForms);
 
             fetch(url, {
                 method: 'POST',
                 headers: {"Content-Type": "application/json; charset=UTF-8"},
                 body: JSON.stringify(datosForms)
             }).then(x => console.log('Datos enviados.'))
+
+            limpiarCampos();
+            formAdded();
         })
     }
     return mainElements
