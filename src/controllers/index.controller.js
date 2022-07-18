@@ -17,11 +17,6 @@ export default () => {
 
     const mainElements = document.createElement('section');
     mainElements.innerHTML = viewHome
-    
-    fetch(url)
-        .then(data => data.json)
-        .then(d => console.log(d))
-        .catch(err => console.log(err))
 
     /* Variables */
     const url = 'http://localhost:8000/api/registers'
@@ -160,6 +155,11 @@ export default () => {
             limpiarCampos();
             console.log('Registro agregado éxitosamente.');
         })
+
+        fetch(url)
+        .then(data => data.json)
+        .then(d => console.log(d))
+        .catch(err => console.log(err))
     }
     return mainElements
 }
