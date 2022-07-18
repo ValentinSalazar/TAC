@@ -46,7 +46,7 @@ export default () => {
         "Formosa", "Chaco", "Salta", "Jujuy", "Catamarca", "Santiago del Estero",
         "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
 
-    
+
     const datosForms = {}
 
 
@@ -72,6 +72,33 @@ export default () => {
         solicitante.value = "";
         estado.value = '';
     }
+
+    function obtenerDatos() {
+        let nota = parseInt(numeroNota.children[1].value)
+        let fecha = boxDate.children[0].value
+        let areaResponsable = firstSelect.value
+        console.log(typeof areaResponsable)
+
+        let numero = secondSelect.value;
+        let localidad = localidades[numero]
+
+        let solicitanteForm = solicitante.value
+        console.log(typeof solicitanteForm)
+        let estadoForm = estado.value
+        console.log(typeof estadoForm)
+
+        let datos = {
+            nota,
+            fecha,
+            areaResponsable,
+            localidad,
+            solicitanteForm,
+            estadoForm
+        }
+        return datos
+    }
+
+
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         // Reseteo los estilos para que no se superpongan.
@@ -113,35 +140,16 @@ export default () => {
             limpiarCampos();
             agregarLocalidades();
         })
-        
+
         addBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            let nota = parseInt(numeroNota.children[1].value)
-            let fecha = boxDate.children[0].value
-            let areaResponsable = firstSelect.value
-            console.log(typeof areaResponsable)
-
-            let numero = secondSelect.value;
-            let localidad = localidades[numero] 
-
-            let solicitanteForm = solicitante.value
-            console.log(typeof solicitanteForm)
-            let estadoForm = estado.value
-            console.log(typeof estadoForm)
-
-            let datosForms = {
-                nota,
-                fecha,
-                areaResponsable, 
-                localidad, 
-                solicitanteForm, 
-                estadoForm
-            }
+            
+            let datosForms = obtenerDatos();
             console.log(datosForms);
 
             fetch(url, {
                 method: 'POST',
-                headers: {"Content-Type": "application/json; charset=UTF-8"},
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
                 body: JSON.stringify(datosForms)
             }).then(x => console.log('Datos enviados.'))
 
