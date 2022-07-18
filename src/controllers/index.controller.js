@@ -118,15 +118,15 @@ export default () => {
             e.preventDefault();
             let nota = parseInt(numeroNota.children[1].value)
             let fecha = boxDate.children[0].value
-            let areaResponsable = firstSelect.value
+            let areaResponsable = firstSelect.innerText
             console.log(areaResponsable)
 
             let numero = secondSelect.value;
             let localidad = localidades[numero] 
 
-            let solicitanteForm = solicitante.value
+            let solicitanteForm = solicitante.innerText
             console.log(solicitanteForm)
-            let estadoForm = estado.value
+            let estadoForm = estado.innerText
             console.log(estadoForm)
 
             let datosForms = {
