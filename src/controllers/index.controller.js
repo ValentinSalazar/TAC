@@ -119,12 +119,15 @@ export default () => {
             let nota = parseInt(numeroNota.children[1].value)
             let fecha = boxDate.children[0].value
             let areaResponsable = firstSelect.value
+            console.log(areaResponsable)
 
             let numero = secondSelect.value;
             let localidad = localidades[numero] 
 
             let solicitanteForm = solicitante.value
+            console.log(solicitanteForm)
             let estadoForm = estado.value
+            console.log(estadoForm)
 
             let datosForms = {
                 nota,
