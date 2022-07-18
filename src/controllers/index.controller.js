@@ -17,8 +17,7 @@ export default () => {
 
     const mainElements = document.createElement('section');
     mainElements.innerHTML = viewHome
-
-    document.addEventListener('DOMContentLoaded')
+    
     fetch(url)
         .then(data => data.json)
         .then(d => console.log(d))
