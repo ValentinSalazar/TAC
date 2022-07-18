@@ -1,11 +1,10 @@
 /* Imports */
 import './styles.css' // Importamos todos los estilos.
-import {router} from './router/index.router.js' // Importamos la funcion router.
+import { router } from './router/index.router.js' // Importamos la funcion router.
 router(window.location.hash)
 window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pagina.
-    router(window.location.hash)
+  router(window.location.hash)
 })
-
 
 /* Variables */
 const menu = document.querySelector('.menu')
@@ -22,20 +21,21 @@ const menuLogo = document.querySelector('.menu__logo')
 for (var i = 0; i < links.length; i++) { // Recorro todos los A
   // Coloca un Underline debajo de los A cuando este sea clickeado.
 
-    // Creo una variable con un link
-    var link = links[i]
+  // Creo una variable con un link
+  var link = links[i]
 
-    // Cuando le demos click, se ejecutara la funcion.
-    link.onclick = function() {
-      //  Le aplica una función a cada uno los elementos cada vez que se haga click.
-        var prev = document.getElementsByClassName("active");
+  // Cuando le demos click, se ejecutara la funcion.
+  link.onclick = function () {
+    //  Le aplica una función a cada uno los elementos cada vez que se haga click.
+    var prev = document.getElementsByClassName("active");
 
-        if (prev && prev[0]) {
-          prev[0].classList.remove("active");
-        }
-        this.classList.add("active");
-      };
+    if (prev && prev[0]) {
+      prev[0].classList.remove("active");
+    }
+    this.classList.add("active");
+  };
 }
+
 
 /* Responsive */
 menuResponsive.addEventListener('click', () => { // Terminarlo.
@@ -50,5 +50,6 @@ menuLogo.addEventListener('click', () => {
   // Redirecciona al usuario cuando haga click en el logo.
   document.location.href = "#"
 })
+
 
 

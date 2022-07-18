@@ -18,6 +18,11 @@ export default () => {
     const mainElements = document.createElement('section');
     mainElements.innerHTML = viewHome
 
+    document.addEventListener('DOMContentLoaded')
+    fetch(url)
+        .then(data => data.json)
+        .then(d => console.log(d))
+        .catch(err => console.log(err))
 
     /* Variables */
     const url = 'http://localhost:8000/api/registers'
@@ -40,6 +45,7 @@ export default () => {
     const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
     const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
+    const table = mainElements.querySelector('main__table')
     const cleanBtn = btnForms.children[0]
     const addBtn = btnForms.children[1]
     const localidades = ["...", "CABA", "Buenos Aires", "La Pampa", "Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones",
@@ -106,7 +112,6 @@ export default () => {
         aside.classList.remove('filters')
         aside.classList.add('filters-off')
 
-
         btnClickMain.addEventListener('click', () => {
             main.classList.toggle('main__with-filters')
             aside.classList.remove('filters-off')
@@ -143,7 +148,7 @@ export default () => {
 
         addBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             let datosForms = obtenerDatos();
             console.log(datosForms);
 
