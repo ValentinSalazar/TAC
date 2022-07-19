@@ -41,8 +41,11 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
 menuResponsive.addEventListener('click', () => { // Terminarlo.
   menu.appendChild(containerLinks)
   containerLinks.classList.toggle('menu__pages')
-  for (i = 0; i < arrayLi.length; i++) {
-    arrayLi[i].classList.add('blanco')
+  for (var i = 0; i < arrayLi.length; i++) {
+    arrayLi[i].style.fontSize = '2.5rem'
+    arrayLi[i].style.backgroundColor = '#ffffff'
+    arrayLi[i].style.listStyle = 'none'
+    arrayLi[i].style.textAlign = 'center'
   }
 })
 

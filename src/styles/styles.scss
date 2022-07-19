@@ -495,11 +495,6 @@ form {
     }
 }
 
-.blanco {
-    list-style: none;
-    color: $primary-color;
-}
-
 
 /* Mobiles */
 @media screen and (max-width:480px) and (orientation:portrait){
@@ -538,6 +533,11 @@ form {
             }
             .menu__pages {
                 display: none;
+            }
+            .menu__pages {
+                .blanco {
+                    color: $secondary-color;
+                }
             }
         }
     }
