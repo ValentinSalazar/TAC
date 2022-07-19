@@ -38,12 +38,6 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
   };
 }
 
-// Obteniendo los registros de la base de datos.
-fetch('http://localhost:8000/api/registers')
-  .then(res => res.json())
-  .then(registros => console.log(registros))
-  .catch(err => console.log(err))
-console.log("Datos obtenidos de la base de datos correctamente.");
 
 
 

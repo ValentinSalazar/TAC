@@ -19,6 +19,7 @@ export default () => {
     mainElements.innerHTML = viewHome
 
     /* Variables */
+    const url = 'http://localhost:8000/api/registers'
     const btnClickMain = mainElements.querySelector('.menu__btn') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
@@ -150,7 +151,72 @@ export default () => {
 
             limpiarCampos();
             console.log('Registro agregado éxitosamente.');
+            alert('Registro agregado éxitosamente.')
+            location.reload();
         })
+
+
+        // Obteniendo los registros de la base de datos.
+        fetch(url)
+            .then(res => res.json())
+            .then(registros => mostrarData(registros))
+            .catch(err => console.log(err))
+
+        const mostrarData = (data) => {
+            console.log(data);
+            let body = `
+            <tr>
+                <th>Nº</th>
+                <th>Fecha de Entrada</th>
+                <th>Area responsable</th>
+                <th>Localidad</th>
+                <th>Solicitante</th>
+                <th>Estado</th>
+                <th>Modificar</th>
+            </tr>
+            `
+            for (let i = 0; i < data.length; i++) {
+                body += `
+             <tr>
+                <td>${data[i].nota}</td>
+                <td>${data[i].fecha}</td>
+                <td>${data[i].areaResponsable}</td>
+                <td>${data[i].localidad}</td>
+                <td>${data[i].solicitanteForm}</td>
+                <td>${data[i].estadoForm}</td>
+                <td>
+            <div class="main__table-modifiers">
+                <div>
+                    <span class="material-symbols-outlined">
+                        check
+                    </span>
+                </div>
+
+                <div>
+                    <span class="material-symbols-outlined">
+                        attach_file
+                    </span>
+                </div>
+
+                <div>
+                    <span class="material-symbols-outlined table-icons--center">
+                        delete
+                    </span>
+                </div>
+
+                <div>
+                    <span class="material-symbols-outlined">
+                        edit
+                    </span>
+                </div>
+
+            </div>
+        </td>
+            </tr>
+             `
+            }
+            mainElements.querySelector('.main__table').innerHTML = body
+        }
 
     }
     return mainElements
