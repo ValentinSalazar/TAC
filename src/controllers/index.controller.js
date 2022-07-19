@@ -152,10 +152,6 @@ export default () => {
             console.log('Registro agregado éxitosamente.');
         })
 
-        fetch(url)
-        .then(data => data.json)
-        .then(d => console.log(d))
-        .catch(err => console.log(err))
     }
     return mainElements
 }
