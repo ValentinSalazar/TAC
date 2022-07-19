@@ -7,7 +7,6 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
 })
 
 /* Variables */
-const url = 'http://localhost:8000/api/registers'
 const menu = document.querySelector('.menu')
 const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
