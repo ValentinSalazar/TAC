@@ -21,10 +21,8 @@ const menuLogo = document.querySelector('.menu__logo')
 
 
 
-// Obteniendo los registros de la base de datos.
-
+// Coloca un Underline debajo de los A cuando este sea clickeado.
 for (var i = 0; i < links.length; i++) { // Recorro todos los A
-  // Coloca un Underline debajo de los A cuando este sea clickeado.
 
   // Creo una variable con un link
   var link = links[i]
@@ -42,7 +40,7 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
 }
 
 // Obteniendo los registros de la base de datos.
-fetch(url)
+fetch('http://localhost:8000/api/registers')
   .then(res => res.json())
   .then(registros => console.log(registros))
   .catch(err => console.log(err))
