@@ -47,6 +47,8 @@ export default () => {
         "Cordoba", "La Rioja", "San Juan", "San Luis", "Rio Negro", "Neuquen", "Chubut", "Santa Cruz", "Tierra del Fuego"]
 
 
+
+
     const datosForms = {}
 
 
@@ -143,16 +145,29 @@ export default () => {
             let datosForms = obtenerDatos();
             console.log(datosForms);
 
-            fetch(url, {
-                method: 'POST',
-                headers: { "Content-Type": "application/json; charset=UTF-8" },
-                body: JSON.stringify(datosForms)
-            }).then(x => console.log('Datos enviados.'))
+            let nota = parseInt(numeroNota.children[1].value)
+            let fecha = boxDate.children[0].value
+            let areaResponsable = firstSelect.value
+            let numero = secondSelect.value;
+            let localidad = localidades[numero]
+            let solicitanteForm = solicitante.value
+            let estadoForm = estado.value
 
-            limpiarCampos();
-            console.log('Registro agregado éxitosamente.');
-            alert('Registro agregado éxitosamente.')
-            location.reload();
+            if (nota === "" || fecha === "" || areaResponsable === "" || localidad === "" || solicitanteForm === "" || estadoForm === "") {
+                alert('Todos los campos deben completarse.')
+            } else {
+                fetch(url, {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
+                    body: JSON.stringify(datosForms)
+                }).then(x => console.log('Datos enviados.'))
+
+                limpiarCampos();
+                console.log('Registro agregado éxitosamente.');
+                alert('Registro agregado éxitosamente.')
+                location.reload();
+            }
+
         })
 
 
@@ -163,7 +178,6 @@ export default () => {
             .catch(err => console.log(err))
 
         const mostrarData = (data) => {
-            console.log(data);
             let body = `
             <tr>
                 <th>Nº</th>
@@ -216,6 +230,22 @@ export default () => {
              `
             }
             mainElements.querySelector('.main__table').innerHTML = body
+
+
+            deleteRegisterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const modifiers = mainElements.querySelector('.main__table-modifiers')
+                const deleteRegisterBtn = modifiers.children[2]
+                const completeRow = deleteRegisterBtn.parentElement.parentElement.parentNode
+
+
+                fetch(url, {
+                    method: 'DELETE',
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
+                    body: ''
+                }).then(x => console.log('Fila eliminada.'))
+            })
         }
 
     }
