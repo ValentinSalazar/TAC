@@ -7,6 +7,7 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
 })
 
 /* Variables */
+const url = 'http://localhost:8000/api/registers'
 const menu = document.querySelector('.menu')
 const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
@@ -35,6 +36,13 @@ for (var i = 0; i < links.length; i++) { // Recorro todos los A
     this.classList.add("active");
   };
 }
+
+// Obteniendo los registros de la base de datos.
+fetch(url)
+  .then(res => res.json())
+  .then(registros => console.log(registros))
+  .catch(err => console.log(err))
+
 
 
 /* Responsive */
