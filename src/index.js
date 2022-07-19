@@ -19,6 +19,10 @@ const btnRegister = document.querySelector('.main__button-register');
 const arrayLi = containerLinks.children
 const menuLogo = document.querySelector('.menu__logo')
 
+
+
+// Obteniendo los registros de la base de datos.
+
 for (var i = 0; i < links.length; i++) { // Recorro todos los A
   // Coloca un Underline debajo de los A cuando este sea clickeado.
 
@@ -55,12 +59,30 @@ menuResponsive.addEventListener('click', () => { // Terminarlo.
     arrayLi[i].style.listStyle = 'none'
     arrayLi[i].style.textAlign = 'center'
   }
-})
 
-menuLogo.addEventListener('click', () => {
-  // Redirecciona al usuario cuando haga click en el logo.
-  document.location.href = "#"
-})
 
+
+  /* Responsive */
+  menuResponsive.addEventListener('click', () => { // Terminarlo.
+    menu.appendChild(containerLinks)
+    containerLinks.classList.toggle('menu__pages')
+    for (var i = 0; i < arrayLi.length; i++) {
+      arrayLi[i].style.fontSize = '2.5rem'
+      arrayLi[i].style.backgroundColor = '#ffffff'
+      arrayLi[i].style.listStyle = 'none'
+      arrayLi[i].style.textAlign = 'center'
+    }
+  })
+
+
+
+
+
+  menuLogo.addEventListener('click', () => {
+    // Redirecciona al usuario cuando haga click en el logo.
+    document.location.href = "#"
+  })
+
+})
 
 
