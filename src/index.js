@@ -7,6 +7,7 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
 })
 
 /* Variables */
+const url = 'http://localhost:8000/api/registers'
 const menu = document.querySelector('.menu')
 const aside = document.querySelector('.filters-off')
 const main = document.querySelector('main')
@@ -18,41 +19,59 @@ const btnRegister = document.querySelector('.main__button-register');
 const arrayLi = containerLinks.children
 const menuLogo = document.querySelector('.menu__logo')
 
-for (var i = 0; i < links.length; i++) { // Recorro todos los A
-  // Coloca un Underline debajo de los A cuando este sea clickeado.
-
-  // Creo una variable con un link
-  var link = links[i]
-
-  // Cuando le demos click, se ejecutara la funcion.
-  link.onclick = function () {
-    //  Le aplica una función a cada uno los elementos cada vez que se haga click.
-    var prev = document.getElementsByClassName("active");
-
-    if (prev && prev[0]) {
-      prev[0].classList.remove("active");
-    }
-    this.classList.add("active");
-  };
-}
 
 
-/* Responsive */
-menuResponsive.addEventListener('click', () => { // Terminarlo.
-  menu.appendChild(containerLinks)
-  containerLinks.classList.toggle('menu__pages')
-  for (var i = 0; i < arrayLi.length; i++) {
-    arrayLi[i].style.fontSize = '2.5rem'
-    arrayLi[i].style.backgroundColor = '#ffffff'
-    arrayLi[i].style.listStyle = 'none'
-    arrayLi[i].style.textAlign = 'center'
+// Obteniendo los registros de la base de datos.
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("Cargando el DOM");
+  fetch(url)
+    .then(res => res.json())
+    .then(registros => console.log(registros))
+    .catch(err => console.log(err))
+
+
+  for (var i = 0; i < links.length; i++) { // Recorro todos los A
+    // Coloca un Underline debajo de los A cuando este sea clickeado.
+
+    // Creo una variable con un link
+    var link = links[i]
+
+    // Cuando le demos click, se ejecutara la funcion.
+    link.onclick = function () {
+      //  Le aplica una función a cada uno los elementos cada vez que se haga click.
+      var prev = document.getElementsByClassName("active");
+
+      if (prev && prev[0]) {
+        prev[0].classList.remove("active");
+      }
+      this.classList.add("active");
+    };
   }
-})
 
-menuLogo.addEventListener('click', () => {
-  // Redirecciona al usuario cuando haga click en el logo.
-  document.location.href = "#"
-})
 
+
+  /* Responsive */
+  menuResponsive.addEventListener('click', () => { // Terminarlo.
+    menu.appendChild(containerLinks)
+    containerLinks.classList.toggle('menu__pages')
+    for (var i = 0; i < arrayLi.length; i++) {
+      arrayLi[i].style.fontSize = '2.5rem'
+      arrayLi[i].style.backgroundColor = '#ffffff'
+      arrayLi[i].style.listStyle = 'none'
+      arrayLi[i].style.textAlign = 'center'
+    }
+  })
+
+
+
+
+
+  menuLogo.addEventListener('click', () => {
+    // Redirecciona al usuario cuando haga click en el logo.
+    document.location.href = "#"
+  })
+
+})
 
 
