@@ -139,6 +139,8 @@ export default () => {
             agregarLocalidades();
         })
 
+
+        // POST Method
         addBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
@@ -171,7 +173,7 @@ export default () => {
         })
 
 
-        // Obteniendo los registros de la base de datos.
+        // GET Method (General registers.)
         fetch(url)
             .then(res => res.json())
             .then(registros => mostrarData(registros))
@@ -199,54 +201,56 @@ export default () => {
                 <td>${data[i].solicitanteForm}</td>
                 <td>${data[i].estadoForm}</td>
                 <td>
-            <div class="main__table-modifiers">
-                <div>
-                    <span class="material-symbols-outlined">
-                        check
-                    </span>
-                </div>
+                    <div class="main__table-modifiers">
+                        <div>
+                            <span class="material-symbols-outlined">
+                                check
+                            </span>
+                        </div>
 
-                <div>
-                    <span class="material-symbols-outlined">
-                        attach_file
-                    </span>
-                </div>
+                        <div>
+                            <span class="material-symbols-outlined">
+                                attach_file
+                            </span>
+                        </div>
 
-                <div>
-                    <span class="material-symbols-outlined table-icons--center">
-                        delete
-                    </span>
-                </div>
+                        <div>
+                            <span class="material-symbols-outlined table-icons--center">
+                                delete
+                            </span>
+                        </div>
 
-                <div>
-                    <span class="material-symbols-outlined">
-                        edit
-                    </span>
-                </div>
+                        <div>
+                            <span class="material-symbols-outlined">
+                                edit
+                            </span>
+                        </div>
 
-            </div>
-        </td>
+                    </div>
+                </td>
             </tr>
-             `
+                    `
             }
             mainElements.querySelector('.main__table').innerHTML = body
-
-
-            deleteRegisterBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-
-                const modifiers = mainElements.querySelector('.main__table-modifiers')
-                const deleteRegisterBtn = modifiers.children[2]
-                const completeRow = deleteRegisterBtn.parentElement.parentElement.parentNode
-
-
-                fetch(url, {
-                    method: 'DELETE',
-                    headers: { "Content-Type": "application/json; charset=UTF-8" },
-                    body: ''
-                }).then(x => console.log('Fila eliminada.'))
-            })
         }
+
+
+
+
+        
+        // DELETE Method (One register)
+        /**deleteRegisterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+    
+            const completeRow = deleteRegisterBtn.parentElement.parentElement.parentNode
+    
+    
+            fetch(url, {
+                method: 'DELETE',
+                headers: { "Content-Type": "application/json; charset=UTF-8" },
+                body: ''
+            }).then(x => console.log('Fila eliminada.'))
+        }) */
 
     }
     return mainElements
