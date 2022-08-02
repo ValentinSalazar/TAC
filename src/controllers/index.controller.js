@@ -39,7 +39,7 @@ export default () => {
     const boxDate = mainElements.querySelector('.form__date-box') // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
     const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
-    const table = mainElements.querySelector('main__table')
+    const table = mainElements.querySelector('.main__table')
     const cleanBtn = btnForms.children[0]
     const addBtn = btnForms.children[1]
     const localidades = ["...", "CABA", "Buenos Aires", "La Pampa", "Mendoza", "Santa Fé", "Entre Rios", "Corrientes", "Misiones",
@@ -164,6 +164,8 @@ export default () => {
                     body: JSON.stringify(datosForms)
                 }).then(x => console.log('Datos enviados.'))
 
+
+                // Una vez que se haga el fetch, se limpiarán los campos y se recargará la página.
                 limpiarCampos();
                 console.log('Registro agregado éxitosamente.');
                 alert('Registro agregado éxitosamente.')
@@ -179,8 +181,10 @@ export default () => {
             .then(registros => mostrarData(registros))
             .catch(err => console.log(err))
 
+
         const mostrarData = (data) => {
-            let body = `
+            let body =
+                `
             <tr>
                 <th>Nº</th>
                 <th>Fecha de Entrada</th>
@@ -190,9 +194,10 @@ export default () => {
                 <th>Estado</th>
                 <th>Modificar</th>
             </tr>
-            `
+        `
             for (let i = 0; i < data.length; i++) {
-                body += `
+                body +=
+                    `
              <tr>
                 <td>${data[i].nota}</td>
                 <td>${data[i].fecha}</td>
@@ -231,27 +236,31 @@ export default () => {
             </tr>
                     `
             }
-            mainElements.querySelector('.main__table').innerHTML = body
-        }
+            mainElements.querySelector('.main__table').innerHTML = body;
+            const divs = document.querySelectorAll('.main__table-modifiers')
+            for (let i = 0; i < divs.length; i++) {
+                divs[i].children[2].addEventListener('click', () => {
+                    // fetch(url).then().then.catch() Terminar el fetch.
+                    divs[i].children[2].parentNode.parentNode.parentNode.remove()
 
+                })}
 
+            }
 
-
+            // DELETE Method (One register)
+            /**deleteRegisterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
         
-        // DELETE Method (One register)
-        /**deleteRegisterBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-    
-            const completeRow = deleteRegisterBtn.parentElement.parentElement.parentNode
-    
-    
-            fetch(url, {
-                method: 'DELETE',
-                headers: { "Content-Type": "application/json; charset=UTF-8" },
-                body: ''
-            }).then(x => console.log('Fila eliminada.'))
-        }) */
+                const completeRow = deleteRegisterBtn.parentElement.parentElement.parentNode
+        
+        
+                fetch(url, {
+                    method: 'DELETE',
+                    headers: { "Content-Type": "application/json; charset=UTF-8" },
+                    body: ''
+                }).then(x => console.log('Fila eliminada.'))
+            }) */
 
+        }
+        return mainElements
     }
-    return mainElements
-}
