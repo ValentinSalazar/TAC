@@ -19,7 +19,7 @@ export default () => {
     mainElements.innerHTML = viewHome
 
     /* Variables */
-    const url = 'http://localhost:8000/api/registers'
+    const url = 'http://localhost:1337/api/registers'
     const btnClickMain = mainElements.querySelector('.menu__btn') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
@@ -161,7 +161,7 @@ export default () => {
                 fetch(url, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
-                    body: JSON.stringify(datosForms)
+                    body: JSON.stringify(datosForms),
                 }).then(x => console.log('Datos enviados.'))
 
 
@@ -181,20 +181,19 @@ export default () => {
             .then(registros => mostrarData(registros))
             .catch(err => console.log(err))
 
-
+        let body =
+            `
+        <tr>
+            <th>Nº</th>
+            <th>Fecha de Entrada</th>
+            <th>Area responsable</th>
+            <th>Localidad</th>
+            <th>Solicitante</th>
+            <th>Estado</th>
+            <th>Modificar</th>
+        </tr>
+    `
         const mostrarData = (data) => {
-            let body =
-                `
-            <tr>
-                <th>Nº</th>
-                <th>Fecha de Entrada</th>
-                <th>Area responsable</th>
-                <th>Localidad</th>
-                <th>Solicitante</th>
-                <th>Estado</th>
-                <th>Modificar</th>
-            </tr>
-        `
             for (let i = 0; i < data.length; i++) {
                 body +=
                     `
@@ -237,30 +236,9 @@ export default () => {
                     `
             }
             mainElements.querySelector('.main__table').innerHTML = body;
-            const divs = document.querySelectorAll('.main__table-modifiers')
-            for (let i = 0; i < divs.length; i++) {
-                divs[i].children[2].addEventListener('click', () => {
-                    // fetch(url).then().then.catch() Terminar el fetch.
-                    divs[i].children[2].parentNode.parentNode.parentNode.remove()
-
-                })}
-
-            }
-
-            // DELETE Method (One register)
-            /**deleteRegisterBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-        
-                const completeRow = deleteRegisterBtn.parentElement.parentElement.parentNode
-        
-        
-                fetch(url, {
-                    method: 'DELETE',
-                    headers: { "Content-Type": "application/json; charset=UTF-8" },
-                    body: ''
-                }).then(x => console.log('Fila eliminada.'))
-            }) */
 
         }
-        return mainElements
+
     }
+    return mainElements
+}
