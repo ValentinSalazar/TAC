@@ -19,7 +19,7 @@ export default () => {
     mainElements.innerHTML = viewHome
 
     /* Variables */
-    const url = 'http://localhost:1337/api/registers'
+    const url = 'http://localhost:3000/api/registers'
     const btnClickMain = mainElements.querySelector('.menu__btn') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
