@@ -19,7 +19,7 @@ export default () => {
     mainElements.innerHTML = viewHome
 
     /* Variables */
-    const url = 'http://localhost:3000/api/registers'
+    const url = 'http://localhost:1337/api/registers'
     const btnClickMain = mainElements.querySelector('.menu__btn') // Obtengo el div que hemos creado en el views/home.html
     const btnFilters = document.querySelector('.box__filters-menu') // Obtengo el boton de filtros que hemos creado en el index.html
     const aside = document.querySelector('aside') // Obtengo la etiqueta Aside que hemos creado en el index.html
@@ -177,7 +177,7 @@ export default () => {
 
         // GET Method (General registers.)
         fetch(url)
-            .then(res => res.json())
+            .then(res => res.json() )
             .then(registros => mostrarData(registros))
             .catch(err => console.log(err))
 
@@ -252,9 +252,19 @@ export default () => {
             const divs = document.querySelectorAll('.main__table-modifiers')
             for (let i = 0; i < divs.length; i++) {
                 divs[i].children[2].addEventListener('click', () => {
-                    // fetch(url).then().then.catch() Terminar el fetch.
-                    divs[i].children[2].parentNode.parentNode.parentNode.remove()
+                    let completeRow = divs[i].children[2].parentNode.parentNode.parentNode
+                    completeRow.remove()
 
+                    console.log(data[i]._id)
+                    
+                    console.log(`${url}/` + `${data[i]._id}`)
+                    
+                    fetch(`${url}/` + `${data[i]._id}`, {
+                        method: 'DELETE',
+                        headers: {'Content-Type':'application/json'}
+                    })
+
+                    alert('Registro eliminado.')
                 })
             }
 
