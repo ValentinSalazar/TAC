@@ -161,7 +161,7 @@ export default () => {
                 fetch(url, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
-                    body: JSON.stringify(datosForms),
+                    body: JSON.stringify(datosForms)
                 }).then(x => console.log('Datos enviados.'))
 
 
@@ -181,19 +181,20 @@ export default () => {
             .then(registros => mostrarData(registros))
             .catch(err => console.log(err))
 
-        let body =
-            `
-        <tr>
-            <th>Nº</th>
-            <th>Fecha de Entrada</th>
-            <th>Area responsable</th>
-            <th>Localidad</th>
-            <th>Solicitante</th>
-            <th>Estado</th>
-            <th>Modificar</th>
-        </tr>
-    `
+
         const mostrarData = (data) => {
+            let body =
+                `
+            <tr>
+                <th>Nº</th>
+                <th>Fecha de Entrada</th>
+                <th>Area responsable</th>
+                <th>Localidad</th>
+                <th>Solicitante</th>
+                <th>Estado</th>
+                <th>Modificar</th>
+            </tr>
+        `
             for (let i = 0; i < data.length; i++) {
                 body +=
                     `
@@ -235,10 +236,30 @@ export default () => {
             </tr>
                     `
             }
+
+            async function search() {
+                const title = document.querySelector('#searchBar').value.trim();
+                const response = await fetch(`http://localhost:3000/api/registers/${title}`)
+                if (response.ok) {
+                    console.log('Exitoso.');
+                } else {
+                    alert(response.statusText)
+                }
+            }
+            document.querySelector('#searchBar').addEventListener('submit', search);
+
             mainElements.querySelector('.main__table').innerHTML = body;
+            const divs = document.querySelectorAll('.main__table-modifiers')
+            for (let i = 0; i < divs.length; i++) {
+                divs[i].children[2].addEventListener('click', () => {
+                    // fetch(url).then().then.catch() Terminar el fetch.
+                    divs[i].children[2].parentNode.parentNode.parentNode.remove()
+
+                })
+            }
 
         }
 
     }
     return mainElements
-}
+} 
