@@ -19,7 +19,7 @@ export default () => {
     main.classList.remove("main__with-filters");
     aside.classList.remove("filters");
     aside.classList.add("filters-off");
-    
+
 
     btnClickMain.addEventListener("click", () => {
       main.classList.toggle("main__with-filters");
@@ -34,7 +34,7 @@ export default () => {
       btnClickMain.classList.toggle("menu__btn");
     });
 
-    
+
     // GET Method (Priorities Registers)
     fetch(url)
       .then((res) => res.json())
@@ -94,8 +94,26 @@ export default () => {
                       `;
       }
       prioritariosElements.querySelector(".main__table").innerHTML = body;
+
+      const divs = document.querySelectorAll(".main__table-modifiers");
+      for (let i = 0; i < divs.length; i++) {
+        divs[i].children[2].addEventListener("click", () => {
+          let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
+          completeRow.remove();
+
+          console.log(data[i]._id);
+          console.log(`${url}/` + `${data[i]._id}`);
+
+          fetch(`${url}/` + `${data[i]._id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          alert("Registro Prioritario eliminado.");
+        });
+      }
     };
-    
+
   }
 
   return prioritariosElements;
