@@ -213,8 +213,8 @@ main {
             box-shadow: $first-shadow;
         }
         tr:hover {
-            background-color: rgba($primary-color, $alpha: 0.05);
             transition: 0.3s;
+            transform: scale(1.05);
         }
         td {
             box-shadow: $first-shadow;
