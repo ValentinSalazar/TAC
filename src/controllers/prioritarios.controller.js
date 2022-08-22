@@ -9,7 +9,8 @@ export default () => {
   const aside = document.querySelector("aside");
   const main = document.querySelector("main");
   const prioritariosWindow = window.location.hash;
-  const buttonPrioritarios = document.querySelector(".menu__pages").children[1].children[0];
+  const buttonPrioritarios =
+    document.querySelector(".menu__pages").children[1].children[0];
 
   const table = prioritariosElements.querySelector(".main__table");
   table.style.marginTop = "4rem";
@@ -19,7 +20,6 @@ export default () => {
     main.classList.remove("main__with-filters");
     aside.classList.remove("filters");
     aside.classList.add("filters-off");
-
 
     btnClickMain.addEventListener("click", () => {
       main.classList.toggle("main__with-filters");
@@ -33,7 +33,6 @@ export default () => {
       aside.classList.add("filters-off");
       btnClickMain.classList.toggle("menu__btn");
     });
-
 
     // GET Method (Priorities Registers)
     fetch(url)
@@ -98,7 +97,8 @@ export default () => {
       const divs = document.querySelectorAll(".main__table-modifiers");
       for (let i = 0; i < divs.length; i++) {
         divs[i].children[2].addEventListener("click", () => {
-          let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
+          let completeRow =
+            divs[i].children[2].parentNode.parentNode.parentNode;
           completeRow.remove();
 
           console.log(data[i]._id);
@@ -113,7 +113,6 @@ export default () => {
         });
       }
     };
-
   }
 
   return prioritariosElements;
