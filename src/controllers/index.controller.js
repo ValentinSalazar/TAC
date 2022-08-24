@@ -33,8 +33,8 @@ export default () => {
     const secondSelect = mainElements.querySelector(".form__location select");
     const solicitante = mainElements.querySelector(".form__solicitante textarea");
     const estado = mainElements.querySelector(".form__estado textarea");
-    const btnForms = mainElements.querySelector(".form__buttons"); // Caja de los botones Limpiar y Agregar. Debo acceder a sus hijos.
-    const boxDate = mainElements.querySelector(".form__date-box"); // Caja del input y boton de fecha de entradas. Debo acceder a sus hijos.
+    const btnForms = mainElements.querySelector(".form__buttons");
+    const boxDate = mainElements.querySelector(".form__date-box");
     const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
     // hasta cual, queremos que obtener las fechas.
     const table = mainElements.querySelector(".main__table");
@@ -69,15 +69,43 @@ export default () => {
     ];
 
     const datosForms = {};
+    const editForm = document.createElement('div')
+    const titleEditForm = document.createElement('h3')
+    titleEditForm.innerText = ''
+    const firstEditer = document.createElement('div')
+    const editNota = document.createElement('textarea')
+    editNota.classList.add('textarea')
+    const editFecha = document.createElement('textarea')
+    editFecha.classList.add('textarea')
+    firstEditer.append(editNota, editFecha)
+    const secondEditer = document.createElement('div')
+    const editArea = document.createElement('textarea')
+    editArea.classList.add('textarea')
+    const editLocalidad = document.createElement('textarea')
+    editLocalidad.classList.add('textarea')
+    secondEditer.append(editArea, editLocalidad)
+    const thirdEditer = document.createElement('div')
+    const editSolicitante = document.createElement('textarea')
+    editSolicitante.classList.add('textarea')
+    const editEstado = document.createElement('textarea')
+    editEstado.classList.add('textarea')
+    thirdEditer.append(editSolicitante, editEstado)
+    const buttonsFormContainer = document.createElement('div')
+    buttonsFormContainer.classList.add('edit__form-btn')
+    const cancelBtn = document.createElement('button')
+    const accceptBtn = document.createElement('button')
+    buttonsFormContainer.append(cancelBtn, accceptBtn)
+    cancelBtn.classList.add('button')
+    cancelBtn.style.backgroundColor = '#D64933'
+    cancelBtn.innerText = 'Cancelar'
+    accceptBtn.classList.add('button')
+    accceptBtn.innerText = 'Aceptar'
+    accceptBtn.style.backgroundColor = '#33a575'
 
-    function crearForm() {
-        const editForm = document.createElement('div')
-        editForm.classList.add('edit__form')
-        if (!document.body.contains(editForm)) {
-            body.append(editForm)
-        }
+    editForm.append(titleEditForm, firstEditer, secondEditer, thirdEditer, buttonsFormContainer)
+    editForm.classList.add('edit__form')
 
-        
+    function animationToForm() {
     }
 
     agregarLocalidades();
@@ -252,7 +280,22 @@ export default () => {
             const divs = document.querySelectorAll(".main__table-modifiers");
             for (let i = 0; i < divs.length; i++) {
                 divs[i].children[3].addEventListener('click', () => {
-                    //crearForm()
+                    titleEditForm.innerText += `Editar Registro con Nota: ${data[i].nota}`
+                    editNota.innerText = `${data[i].nota}`
+                    editFecha.innerText = `${data[i].fecha}`
+                    editArea.innerText = `${data[i].areaResponsable}`
+                    editLocalidad.innerText = `${data[i].localidad}`
+                    editSolicitante.innerText = `${data[i].solicitanteForm}`
+                    editEstado.innerText = `${data[i].estadoForm}`
+                    if (!document.body.contains(editForm)) {
+                        document.body.append(editForm)
+                    }
+                    buttonsFormContainer.children[0].addEventListener('click',  () => {
+                        editForm.remove()
+                    })
+                    buttonsFormContainer.children[1].addEventListener('click', () => {
+                        alert()
+                    })
 
                 })
                 divs[i].children[2].addEventListener("click", () => {
