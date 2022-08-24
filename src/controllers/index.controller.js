@@ -40,6 +40,7 @@ export default () => {
     const table = mainElements.querySelector(".main__table");
     const cleanBtn = btnForms.children[0];
     const addBtn = btnForms.children[1];
+    const body = document.querySelector('body')
     const localidades = [
         "...",
         "CABA",
@@ -68,6 +69,16 @@ export default () => {
     ];
 
     const datosForms = {};
+
+    function crearForm() {
+        const editForm = document.createElement('div')
+        editForm.classList.add('edit__form')
+        if (!document.body.contains(editForm)) {
+            body.append(editForm)
+        }
+
+        
+    }
 
     agregarLocalidades();
     function agregarLocalidades() {
@@ -240,6 +251,10 @@ export default () => {
 
             const divs = document.querySelectorAll(".main__table-modifiers");
             for (let i = 0; i < divs.length; i++) {
+                divs[i].children[3].addEventListener('click', () => {
+                    //crearForm()
+
+                })
                 divs[i].children[2].addEventListener("click", () => {
                     let completeRow =
                         divs[i].children[2].parentNode.parentNode.parentNode;
@@ -278,7 +293,7 @@ export default () => {
                     completeRow.remove();
                     location.reload();
 
- 
+
                     fetch("http://localhost:1337/api/priorities", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
