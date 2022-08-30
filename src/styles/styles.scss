@@ -700,21 +700,20 @@ form {
 }
 
 .edit__form {
-    height: 50rem;
     max-width: 60rem;
     box-shadow: $first-shadow;
     margin: 0 auto;
     border: 1px solid $primary-color;
     border-radius: 0.5rem;
-    backdrop-filter: blur(10px);
+    background-color: $primary-color;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     h3 {
         width: 50%;
         @include title-h3;
-        color: $primary-color;
+        color: $secondary-color;
+        margin: 1rem;
         
     }
     div {
@@ -727,6 +726,13 @@ form {
     }
     button {
         width: 50%;
+    }
+    label {
+        color: $secondary-color;
+        text-transform: uppercase;
+        font-size: 1rem;
+        font-family: 'Poppins';
+        font-weight: 600;
     }
 }
 .edit__form-btn {
@@ -839,6 +845,14 @@ form {
                 td {
                     padding: 1rem;
                 }
+            }
+        }
+        .form__location {
+            select {
+                font-size: 1.5rem;
+            }
+            input {
+                font-size: 1.5rem;
             }
         }
     }

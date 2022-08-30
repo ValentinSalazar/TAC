@@ -69,29 +69,101 @@ export default () => {
     ];
 
     const datosForms = {};
+
     const editForm = document.createElement('div')
+    editForm.style.display = 'flex'
     const titleEditForm = document.createElement('h3')
     titleEditForm.innerText = ''
-    const firstEditer = document.createElement('div')
+
+    const firstDiv = document.createElement('div')
+    firstDiv.style.display = 'flex'
+    firstDiv.style.flexDirection = 'row'
+
+    const divNota = document.createElement('div')
+    divNota.style.display = 'flex'
+    divNota.style.flexDirection = 'column'
+    divNota.style.justifyContent = 'center'
+    divNota.style.alignItems = 'center'
+    const labelNota = document.createElement('label')
+    labelNota.innerText = 'Nota'
     const editNota = document.createElement('textarea')
     editNota.classList.add('textarea')
+    divNota.append(labelNota, editNota)
+
+    const divFecha = document.createElement('div')
+    divFecha.style.display = 'flex'
+    divFecha.style.flexDirection = 'column'
+    divFecha.style.alignItems = 'center'
+    const labelFecha = document.createElement('label')
+    labelFecha.innerText = 'Fecha de Entrada'
     const editFecha = document.createElement('textarea')
     editFecha.classList.add('textarea')
-    firstEditer.append(editNota, editFecha)
-    const secondEditer = document.createElement('div')
+    divFecha.append(labelFecha, editFecha)
+
+    firstDiv.append(divNota, divFecha)
+
+    const secondDiv = document.createElement('div')
+    secondDiv.style.display = 'flex'
+    secondDiv.style.justifyContent = 'center'
+    secondDiv.style.alignItems = 'center'
+
+    const divArea = document.createElement('div')
+    divArea.style.display = 'flex'
+    divArea.style.flexDirection = 'column'
+    divArea.style.justifyContent = 'center'
+    divArea.style.alignItems = 'center'
+    const labelArea = document.createElement('label')
+    labelArea.innerText = 'Area Responsable'
     const editArea = document.createElement('textarea')
     editArea.classList.add('textarea')
+    divArea.append(labelArea, editArea)
+
+    const divLocalidad = document.createElement('div')
+    divLocalidad.style.display = 'flex'
+    divLocalidad.style.flexDirection = 'column'
+    divLocalidad.style.alignItems = 'center'
+    const label_Localidad = document.createElement('label')
+    label_Localidad.innerText = 'Localidad'
     const editLocalidad = document.createElement('textarea')
     editLocalidad.classList.add('textarea')
-    secondEditer.append(editArea, editLocalidad)
-    const thirdEditer = document.createElement('div')
+    divLocalidad.append(label_Localidad, editLocalidad)
+
+    secondDiv.append(divArea, divLocalidad)
+
+
+    const thirdDiv = document.createElement('div')
+    thirdDiv.style.display = 'flex'
+    thirdDiv.justifyContent = 'center'
+    thirdDiv.alignItems = 'center'
+
+    const divSolicitante = document.createElement('div')
+    divSolicitante.style.display = 'flex'
+    divSolicitante.style.flexDirection = 'column'
+    divSolicitante.style.justifyContent = 'center'
+    divSolicitante.style.alignItems = 'center'
+    const labelSolicitante = document.createElement('label')
+    labelSolicitante.innerText = 'Solicitante'
     const editSolicitante = document.createElement('textarea')
     editSolicitante.classList.add('textarea')
+    divSolicitante.append(labelSolicitante, editSolicitante)
+
+    const divEstado = document.createElement('div')
+    divEstado.style.display = 'flex'
+    divEstado.style.flexDirection = 'column'
+    divEstado.style.justifyContent = 'center'
+    divEstado.style.alignItems = 'center'
+    const labelEstado = document.createElement('label')
+    labelEstado.innerText = 'Estado'
     const editEstado = document.createElement('textarea')
     editEstado.classList.add('textarea')
-    thirdEditer.append(editSolicitante, editEstado)
+    divEstado.append(labelEstado, editEstado)
+
+    thirdDiv.append(divSolicitante, divEstado)
+
+
     const buttonsFormContainer = document.createElement('div')
     buttonsFormContainer.classList.add('edit__form-btn')
+    buttonsFormContainer.style.margin = '3rem'
     const cancelBtn = document.createElement('button')
     const accceptBtn = document.createElement('button')
     buttonsFormContainer.append(cancelBtn, accceptBtn)
@@ -102,7 +174,7 @@ export default () => {
     accceptBtn.innerText = 'Aceptar'
     accceptBtn.style.backgroundColor = '#33a575'
 
-    editForm.append(titleEditForm, firstEditer, secondEditer, thirdEditer, buttonsFormContainer)
+    editForm.append(titleEditForm, firstDiv, secondDiv, thirdDiv, buttonsFormContainer)
     editForm.classList.add('edit__form')
 
     function animationToForm() {
@@ -279,32 +351,59 @@ export default () => {
 
             const divs = document.querySelectorAll(".main__table-modifiers");
             for (let i = 0; i < divs.length; i++) {
+                let completeRow = divs[i].parentNode.parentNode;
+                let nota = parseInt(completeRow.children[0].innerText);
+                let fecha = completeRow.children[1].innerText;
+                let areaResponsable = completeRow.children[2].innerText;
+                let localidad = completeRow.children[3].innerText;
+                let solicitanteForm = completeRow.children[4].innerText;
+                let estadoForm = completeRow.children[5].innerText;
+                let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
+
                 divs[i].children[3].addEventListener('click', () => {
-                    titleEditForm.innerText += `Editar Registro con Nota: ${data[i].nota}`
+                    titleEditForm.innerText = `Editar Registro con Nota: ${data[i].nota}`
                     editNota.innerText = `${data[i].nota}`
                     editFecha.innerText = `${data[i].fecha}`
                     editArea.innerText = `${data[i].areaResponsable}`
                     editLocalidad.innerText = `${data[i].localidad}`
                     editSolicitante.innerText = `${data[i].solicitanteForm}`
                     editEstado.innerText = `${data[i].estadoForm}`
-                    if (!document.body.contains(editForm)) {
-                        document.body.append(editForm)
-                    }
-                    buttonsFormContainer.children[0].addEventListener('click',  () => {
+                    table.insertAdjacentElement("beforebegin", editForm)
+                    buttonsFormContainer.children[0].addEventListener('click', () => {
                         editForm.remove()
                     })
                     buttonsFormContainer.children[1].addEventListener('click', () => {
-                        alert()
+                        const editData = {
+                            nota: editNota.value,
+                            fecha: editFecha.value,
+                            areaResponsable: editArea.value,
+                            localidad: editLocalidad.value,
+                            solicitanteForm: editSolicitante.value,
+                            estadoForm: editEstado.value
+
+                        }
+                        fetch(`${url}/` + `${data[i]._id}`, {
+                            method: 'PATCH',
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(editData)
+                        })
+                        alert('Registro actualizado correctamente.')
+                        location.reload()
                     })
+
+
+
 
                 })
                 divs[i].children[2].addEventListener("click", () => {
-                    let completeRow =
-                        divs[i].children[2].parentNode.parentNode.parentNode;
+                    let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
                     completeRow.remove();
 
-                    // console.log(data[i]._id);
-                    // console.log(`${url}/` + `${data[i]._id}`);
+                    fetch("http://localhost:1337/api/finalizados", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bodyData),
+                    });
 
                     fetch(`${url}/` + `${data[i]._id}`, {
                         method: "DELETE",
@@ -315,23 +414,6 @@ export default () => {
                 });
                 divs[i].children[0].addEventListener("click", () => {
                     //let completeRow = divs[i].children[0].parentNode.parentNode.parentNode
-                    let completeRow = divs[i].parentNode.parentNode;
-                    let nota = parseInt(completeRow.children[0].innerText);
-                    let fecha = completeRow.children[1].innerText;
-                    let areaResponsable = completeRow.children[2].innerText;
-                    let localidad = completeRow.children[3].innerText;
-                    let solicitanteForm = completeRow.children[4].innerText;
-                    let estadoForm = completeRow.children[5].innerText;
-                    let bodyData = {
-                        nota,
-                        fecha,
-                        areaResponsable,
-                        localidad,
-                        solicitanteForm,
-                        estadoForm,
-                    };
-                    // console.log(typeof firstTd);
-                    // console.log(bodyData);
                     alert("Enviado correctamente al apartado de Prioritarios.");
                     completeRow.remove();
                     location.reload();

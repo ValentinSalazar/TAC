@@ -97,12 +97,19 @@ export default () => {
 
       const divs = document.querySelectorAll(".main__table-modifiers");
       for (let i = 0; i < divs.length; i++) {
+        let completeRow = divs[i].parentNode.parentNode;
+        let nota = parseInt(completeRow.children[0].innerText);
+        let fecha = completeRow.children[1].innerText;
+        let areaResponsable = completeRow.children[2].innerText;
+        let localidad = completeRow.children[3].innerText;
+        let solicitanteForm = completeRow.children[4].innerText;
+        let estadoForm = completeRow.children[5].innerText;
+        let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
         divs[i].children[2].addEventListener("click", () => {
           let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
           completeRow.remove();
 
-          console.log(data[i]._id);
-          console.log(`${url}/` + `${data[i]._id}`);
+
 
           fetch(`${url}/` + `${data[i]._id}`, {
             method: "DELETE",
