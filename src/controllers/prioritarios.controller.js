@@ -103,6 +103,7 @@ export default () => {
         let localidad = completeRow.children[3].innerText;
         let solicitanteForm = completeRow.children[4].innerText;
         let estadoForm = completeRow.children[5].innerText;
+
         let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
         divs[i].children[2].addEventListener("click", () => {
           let completeRow =

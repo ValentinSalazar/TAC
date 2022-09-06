@@ -272,7 +272,6 @@ export default () => {
             e.preventDefault();
 
             let datosForms = obtenerDatos();
-            console.log(datosForms);
 
             let { nota, fecha, areaResponsable, numero, localidad, solicitanteForm, estadoForm, } = datosForms;
             if (nota === "" || fecha === "" || areaResponsable === "" || localidad === "" || solicitanteForm === "" || estadoForm === "") {
@@ -295,6 +294,7 @@ export default () => {
             .then((res) => res.json())
             .then((registros) => mostrarData(registros))
             .catch((err) => console.log(err));
+
         const mostrarData = (data) => {
             let body = `
             <tr>
@@ -306,7 +306,7 @@ export default () => {
                 <th>Estado</th>
                 <th>Modificar</th>
             </tr>
-        `;
+         `;
             for (let i = 0; i < data.length; i++) {
                 body += `
              <tr>
@@ -357,10 +357,104 @@ export default () => {
                 let areaResponsable = completeRow.children[2].innerText;
                 let localidad = completeRow.children[3].innerText;
                 let solicitanteForm = completeRow.children[4].innerText;
-                let estadoForm = completeRow.children[5].innerText;
+                let estadoForm = completeRow.children[5].innerText
+                let link = completeRow.children[6].children[0].children[1]
                 let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
 
-                divs[i].children[3].addEventListener('click', () => {
+
+
+
+                /* PRIORITARIES BUTTON*/
+                divs[i].children[0].addEventListener("click", () => {
+                    `Prioritaries button`
+                    alert("Enviado correctamente al apartado de Prioritarios.");
+                    completeRow.remove();
+                    location.reload();
+
+
+                    fetch("http://localhost:1337/api/priorities", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bodyData),
+                    });
+                    fetch(`${url}/` + `${data[i]._id}`, {
+                        method: "DELETE",
+                        headers: { "Content-Type": "application/json" },
+                    });
+                });
+
+
+
+
+                /* ATTATCH BUTTON */
+                divs[i].children[1].addEventListener('click', () => {
+                    const linkInput = document.createElement('input')
+                    linkInput.placeholder = 'Ingresa un link..'
+                    linkInput.value = `${data[i].link}`
+                    const btnLinkInput = document.createElement('button')
+                    btnLinkInput.style.width = '3rem'
+                    btnLinkInput.innerText = 'OK'
+                    const btnCloseInput = document.createElement('button')
+                    btnCloseInput.style.width = '3rem'
+                    btnCloseInput.innerText = 'X'
+
+                    if (divs[i].children[1].parentElement.contains(linkInput)) {
+                        console.log('lo contiene');
+                    } else {
+                        divs[i].children[1].parentElement.append(linkInput, btnCloseInput, btnLinkInput)
+                    }
+
+                    const input = completeRow.children[6].children[0].children[4]
+                    btnLinkInput.addEventListener('click', () => {
+                        const objetoLink = { link: input.value }
+                        if (linkInput.value === "") {
+                        } else {
+                            fetch(`${url}/` + `${data[i]._id}`, {
+                                method: 'PATCH',
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(objetoLink)
+                            })
+                        }
+                        alert('Link actualizado correctamente.')
+                        location.reload()
+                    })
+                    btnCloseInput.addEventListener('click', () => {
+                        linkInput.remove()
+                        btnLinkInput.remove()
+                        btnCloseInput.remove()
+                    })
+                })
+
+
+
+
+                /* DELETE BUTTON */
+                divs[i].children[2].addEventListener("click", () => {
+                    const linkInput = document.createElement('input')
+                    linkInput.value = `${data[i].link}`
+                    bodyData.link = linkInput.value
+                    console.log(bodyData);
+                    let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
+                    completeRow.remove();
+                    fetch("http://localhost:1337/api/finalizados", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bodyData),
+                    });
+
+                    fetch(`${url}/` + `${data[i]._id}`, {
+                        method: "DELETE",
+                        headers: { "Content-Type": "application/json" },
+                    });
+
+                    alert("Registro eliminado.");
+                });
+
+
+
+
+                /* EDIT BUTTON */
+                divs[i].children[3].addEventListener('click', (e) => {
                     titleEditForm.innerText = `Editar Registro con Nota: ${data[i].nota}`
                     editNota.innerText = `${data[i].nota}`
                     editFecha.innerText = `${data[i].fecha}`
@@ -390,45 +484,10 @@ export default () => {
                         alert('Registro actualizado correctamente.')
                         location.reload()
                     })
-
-
-
-
                 })
-                divs[i].children[2].addEventListener("click", () => {
-                    let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
-                    completeRow.remove();
-
-                    fetch("http://localhost:1337/api/finalizados", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(bodyData),
-                    });
-
-                    fetch(`${url}/` + `${data[i]._id}`, {
-                        method: "DELETE",
-                        headers: { "Content-Type": "application/json" },
-                    });
-
-                    alert("Registro eliminado.");
-                });
-                divs[i].children[0].addEventListener("click", () => {
-                    //let completeRow = divs[i].children[0].parentNode.parentNode.parentNode
-                    alert("Enviado correctamente al apartado de Prioritarios.");
-                    completeRow.remove();
-                    location.reload();
 
 
-                    fetch("http://localhost:1337/api/priorities", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(bodyData),
-                    });
-                    fetch(`${url}/` + `${data[i]._id}`, {
-                        method: "DELETE",
-                        headers: { "Content-Type": "application/json" },
-                    });
-                });
+
             }
         };
 

@@ -49,6 +49,7 @@ export default () => {
                 <th>Localidad</th>
                 <th>Solicitante</th>
                 <th>Estado</th>
+                <th> Adjunto </th>
             </tr>
         `;
             for (let i = 0; i < data.length; i++) {
@@ -61,11 +62,39 @@ export default () => {
                 <td>${data[i].solicitanteForm}</td>
                 <td>${data[i].estadoForm}</td>
                 <td>
+                <div class="main__table-modifiers">
+                    <div style="background-color: #33a575; align-self: stretch;">
+                        <span class="material-symbols-outlined">
+                            attach_file
+                        </span>
+                     </div>
+                </div>
                 </td>
             </tr>
                     `;
             }
             finalizadosElements.querySelector(".main__table").innerHTML = body;
+
+            const divs = document.querySelectorAll(".main__table-modifiers");
+            for (let i = 0; i < divs.length; i++) {
+                divs[i].children[0].addEventListener('click', () => {
+                    const linkInput = document.createElement('a')
+                    linkInput.href = `${data[i].link}`
+                    linkInput.target = '_blank'
+                    linkInput.style.alignSelf = 'center'
+                    linkInput.innerText = `Click para ir al Link`
+                    console.log(linkInput);
+                    if (divs[i].children[0].parentElement.contains(linkInput)) {
+                        console.log('lo contiene');
+                    } else {
+                        divs[i].children[0].parentElement.append(linkInput)
+                    }
+                    setTimeout(() => {
+                        linkInput.remove()
+                        btnCloseInput.remove()
+                    }, 3000);
+                })
+            }
         }
 
 

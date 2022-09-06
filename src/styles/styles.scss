@@ -218,11 +218,6 @@ main {
             text-transform: uppercase;
             box-shadow: $first-shadow;
         }
-        tr:hover {
-            transition: 0.3s;
-            transform: scale(1.01);
-            transform: scale(1.03);
-        }
 
         td {
             box-shadow: $first-shadow;
