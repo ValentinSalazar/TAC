@@ -6,8 +6,8 @@
     "html-webpack-plugin": "^5.5.0",
     "node-sass": "^7.0.1",
     "sass-loader": "^13.0.0",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
+    "devStart": "npx webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

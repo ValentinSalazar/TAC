@@ -17,7 +17,6 @@ const router = (route) => {
 // Es un Arrow Function que recibe como parametro la ruta que estamos navegando.
     // Limpiamos el contenido antes para que no se duplique.
     main.innerHTML = ''
-
     // Switch, este condicional lo que hace es elegir lo que se debe mostrar dependiendo
     // de la ruta en la cual el usuario este navegando. Ademas, en caso de que el usuario entre
     // en alguna ruta la cual no se encuentra en nuestro proyecto, retornara un aviso por Default.
@@ -28,14 +27,14 @@ const router = (route) => {
         case "#/": {
             return main.appendChild(home()); 
         }
-            
-        case "#/Prioritarios":
-            return console.log("hola,prioritarios")
-        case "#/Mapa": {
-            return main.appendChild(mapa())
+        case "#/Prioritarios": {
+            return main.appendChild(prioritarios())
         }
         case "#/Finalizados": {
-            return console.log('finalizados')
+            return main.appendChild(finalizados());
+        }
+        case "#/Mapa": {
+            return main.appendChild(mapa())
         }
             
         default:

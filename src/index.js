@@ -1,45 +1,50 @@
 /* Imports */
 import './styles.css' // Importamos todos los estilos.
-import {router} from './router/index.router.js' // Importamos la funcion router.
+import { router } from './router/index.router.js' // Importamos la funcion router.
 router(window.location.hash)
 window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pagina.
-    router(window.location.hash)
+  router(window.location.hash)
 })
-
 
 /* Variables */
-const menuBtn = document.querySelector('.box__filters-menu')
-const aside = document.querySelector('.filters')
-const main = document.querySelector('main')
+const menu = document.querySelector('.menu')
+const containerLinks = document.querySelector('.menu__pages')
+const menuResponsive = document.querySelector('.menu__responsive')
+const arrayLi = containerLinks.children
+const menuLogo = document.querySelector('.menu__logo')
 
-const links = document.querySelectorAll('li a') // Obtengo los A de los Li.
+menuResponsive.children[1].style.display = 'none'
+/* Responsive */
+menuResponsive.children[0].addEventListener('click', () => { // Terminarlo.
+  menuResponsive.children[0].style.display = 'none'
+  menuResponsive.children[1].style.display = 'inline'
+  menu.insertAdjacentElement('afterend', containerLinks)
+  containerLinks.classList.add('menu__pages')
+  for (var i = 0; i < arrayLi.length; i++) {
+    arrayLi[i].style.fontSize = '2.5rem'
+    arrayLi[i].style.backgroundColor = '#ffffff'
+    arrayLi[i].style.listStyle = 'none'
+    arrayLi[i].style.textAlign = 'center'
+    arrayLi[i].style.textTransform = 'uppercase'
+    arrayLi[i].style.fontFamily = 'Poppins'
+    arrayLi[i].children[0].style.textDecoration = 'none'
+    arrayLi[i].style.borderBottom = '1px solid rgba(0,0,0,0.2)'
+    arrayLi[i].children[0].style.color = '#0695d6'
+    arrayLi[i].children[0].style.fontWeight = '600'
+  }
 
-const btnRegister = document.querySelector('.main__button-register');
+  menuResponsive.children[1].addEventListener('click', () => {
+    menuResponsive.children[1].style.display = 'none'
+    menuResponsive.children[0].style.display = 'inline'
+    containerLinks.remove()
+  })
 
-/* Events Listener */
-menuBtn.addEventListener('click', () => {
-  // Cuando el usuario da click en la X de
-    aside.classList.remove('box__filters-menu')
-    aside.classList.add('filters-off')
+
+
+  menuLogo.addEventListener('click', () => {
+    // Redirecciona al usuario cuando haga click en el logo.
+    document.location.href = "#"
+  })
 
 })
-
-
-for (var i = 0; i < links.length; i++) { // Recorro todos los A
-  // Coloca un Underline debajo de los A cuando este sea clickeado.
-
-    // Creo una variable con un link
-    var link = links[i]
-
-    // Cuando le demos click, se ejecutara la funcion.
-    link.onclick = function() {
-        var prev = document.getElementsByClassName("active");
-        console.log(prev)
-        if (prev && prev[0]) {
-          prev[0].classList.remove("active");
-        }
-        this.classList.add("active");
-      };
-}
-
 
