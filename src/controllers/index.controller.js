@@ -15,14 +15,16 @@ import viewHome from "../views/home.html";
 export default () => {
     const mainElements = document.createElement("section");
     mainElements.innerHTML = viewHome;
+    if (window.location.hash === '/') {
 
+    }
     /* Variables */
     const url = "http://localhost:1337/api/registers";
-    const btnClickMain = mainElements.querySelector(".menu__btn"); // Obtengo el div que hemos creado en el views/home.html
-    const btnFilters = document.querySelector(".box__filters-menu"); // Obtengo el boton de filtros que hemos creado en el index.html
-    const aside = document.querySelector("aside"); // Obtengo la etiqueta Aside que hemos creado en el index.html
-    const main = document.querySelector("main"); // Obtengo el main del index.html
-    const homeWindow = window.location.hash; // Obtengo el Hash del Inicio.
+    const btnClickMain = mainElements.querySelector(".menu__btn"); 
+    const btnFilters = document.querySelector(".box__filters-menu");
+    const aside = document.querySelector("aside"); 
+    const main = document.querySelector("main"); 
+    const homeWindow = window.location.hash; 
     const btnRegister = mainElements.querySelector(".main__button-register");
     const form = mainElements.querySelector(".none");
     const BtnformQuit = mainElements.querySelector(".form__quit");
@@ -35,8 +37,7 @@ export default () => {
     const estado = mainElements.querySelector(".form__estado textarea");
     const btnForms = mainElements.querySelector(".form__buttons");
     const boxDate = mainElements.querySelector(".form__date-box");
-    const dateToday = new Date().toISOString().substring(0, 10); // Capturamos la fecha del día y con substring le indicamos desde que indice
-    // hasta cual, queremos que obtener las fechas.
+    const dateToday = new Date().toISOString().substring(0, 10);
     const table = mainElements.querySelector(".main__table");
     const cleanBtn = btnForms.children[0];
     const addBtn = btnForms.children[1];
@@ -177,9 +178,6 @@ export default () => {
     editForm.append(titleEditForm, firstDiv, secondDiv, thirdDiv, buttonsFormContainer)
     editForm.classList.add('edit__form')
 
-    function animationToForm() {
-    }
-
     agregarLocalidades();
     function agregarLocalidades() {
         for (let i = 0; i < localidades.length; i++) {
@@ -195,10 +193,10 @@ export default () => {
     }
 
     function limpiarCampos() {
-        numeroNota.children[1].value = ""; // Limpio los numeros de notas.
-        boxDate.children[0].value = ""; // Limpio la fecha.
-        firstSelect.value = ""; // Limpio el primer select
-        secondSelect.innerHTML = ""; // Limpio el segundo select.
+        numeroNota.children[1].value = ""; 
+        boxDate.children[0].value = ""; 
+        firstSelect.value = ""; 
+        secondSelect.innerHTML = ""; 
         solicitante.value = "";
         estado.value = "";
     }
@@ -225,12 +223,20 @@ export default () => {
         return datos;
     }
 
+    
+    const menuPages = document.querySelector('.menu__pages')
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         // Reseteo los estilos para que no se superpongan.
         main.classList.remove("main__with-filters");
         aside.classList.remove("filters");
         aside.classList.add("filters-off");
+
+        const navHome = document.querySelector(".menu__pages").children[0].children[0]
+        menuPages.children[1].children[0].classList.remove('active')
+        menuPages.children[2].children[0].classList.remove('active')
+        menuPages.children[3].children[0].classList.remove("active");
+        navHome.classList.add('active')
 
         btnClickMain.addEventListener("click", () => {
             main.classList.toggle("main__with-filters");
@@ -256,13 +262,12 @@ export default () => {
         btnToday.addEventListener("click", (e) => {
             e.preventDefault();
             if (boxDate.children[0].value == "") {
-                // Terminar de hacer el ingreso de la fecha al input type=date.
                 boxDate.children[0].value = dateToday;
             }
         });
 
         btnForms.children[0].addEventListener("click", (e) => {
-            e.preventDefault(); // Boton Limpiar
+            e.preventDefault();
             limpiarCampos();
             agregarLocalidades();
         });

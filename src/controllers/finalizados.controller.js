@@ -5,7 +5,7 @@ export default () => {
     const finalizadosElements = document.createElement('section')
     finalizadosElements.innerHTML = finalizados;
     const finalizadosWindow = window.location.hash;
-
+    const menuPages = document.querySelector('.menu__pages')
 
     const btnClickMain = finalizadosElements.querySelector('.menu__btn')
     const btnFilters = document.querySelector('.box__filters-menu')
@@ -16,6 +16,9 @@ export default () => {
     btnClickMain.style.marginTop = "-2rem"
 
     if (finalizadosWindow == "#/Finalizados") {
+        menuPages.children[1].children[0].classList.remove('active')
+        menuPages.children[2].children[0].classList.add('active')
+        menuPages.children[3].children[0].classList.remove("active");
         main.classList.remove('main__with-filters')
         aside.classList.remove('filters')
         aside.classList.add('filters-off')

@@ -9,14 +9,18 @@ export default () => {
   const aside = document.querySelector("aside");
   const main = document.querySelector("main");
   const prioritariosWindow = window.location.hash;
-  const buttonPrioritarios =
-    document.querySelector(".menu__pages").children[1].children[0];
+  const menuPages = document.querySelector('.menu__pages')
+  const buttonPrioritarios = menuPages.children[1].children[0];
 
   const table = prioritariosElements.querySelector(".main__table");
   table.style.marginTop = "4rem";
   btnClickMain.style.marginTop = "-2rem";
 
   if (prioritariosWindow == "#/Prioritarios") {
+    menuPages.children[0].children[0].classList.remove('active')
+    menuPages.children[2].children[0].classList.remove('active')
+    menuPages.children[3].children[0].classList.remove('active')
+    buttonPrioritarios.classList.add('active')
     main.classList.remove("main__with-filters");
     aside.classList.remove("filters");
     aside.classList.add("filters-off");
