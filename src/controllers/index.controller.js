@@ -319,8 +319,8 @@ export default () => {
                 <td>${data[i].fecha}</td>
                 <td>${data[i].areaResponsable}</td>
                 <td>${data[i].localidad}</td>
-                <td>${data[i].solicitanteForm}</td>
-                <td>${data[i].estadoForm}</td>
+                <td><div>${data[i].solicitanteForm}</div></td>
+                <td><div>${data[i].estadoForm}</div></td>
                 <td>
                     <div class="main__table-modifiers">
                         <div>
