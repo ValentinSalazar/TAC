@@ -16,6 +16,7 @@ export default () => {
     btnClickMain.style.marginTop = "-2rem"
 
     if (finalizadosWindow == "#/Finalizados") {
+        menuPages.children[0].children[0].classList.remove('active')
         menuPages.children[1].children[0].classList.remove('active')
         menuPages.children[2].children[0].classList.add('active')
         menuPages.children[3].children[0].classList.remove("active");
@@ -82,11 +83,20 @@ export default () => {
             for (let i = 0; i < divs.length; i++) {
                 divs[i].children[0].addEventListener('click', () => {
                     const linkInput = document.createElement('a')
-                    linkInput.href = `${data[i].link}`
-                    linkInput.target = '_blank'
+                    if (!`${data[i].link}`.includes('https://')) {
+
+                        linkInput.href = `${'https' + '://' + data[i].link}`
+                        linkInput.target = '_blank'
+
+                    } else {
+                        linkInput.href = `${data[i].link}`
+                        linkInput.target = '_blank'
+                    }
+
+
                     linkInput.style.alignSelf = 'center'
                     linkInput.innerText = `Click para ir al Link`
-                    console.log(linkInput);
+
                     if (divs[i].children[0].parentElement.contains(linkInput)) {
                         console.log('lo contiene');
                     } else {
