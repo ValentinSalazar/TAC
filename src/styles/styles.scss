@@ -235,7 +235,10 @@ main {
             div {
                 max-height: 20rem;
                 font-size: 1.3rem;
-                overflow: scroll;
+                &:hover {
+                    overflow: auto;
+                }
+                
 
             }
         }
@@ -243,7 +246,9 @@ main {
             div {
                 max-height: 20rem;
                 font-size: 1.3rem;
-                overflow: scroll;
+                &:hover {
+                    overflow: auto;
+                }
 
             }
         }

@@ -20,11 +20,11 @@ export default () => {
     }
     /* Variables */
     const url = "http://localhost:1337/api/registers";
-    const btnClickMain = mainElements.querySelector(".menu__btn"); 
+    const btnClickMain = mainElements.querySelector(".menu__btn");
     const btnFilters = document.querySelector(".box__filters-menu");
-    const aside = document.querySelector("aside"); 
-    const main = document.querySelector("main"); 
-    const homeWindow = window.location.hash; 
+    const aside = document.querySelector("aside");
+    const main = document.querySelector("main");
+    const homeWindow = window.location.hash;
     const btnRegister = mainElements.querySelector(".main__button-register");
     const form = mainElements.querySelector(".none");
     const BtnformQuit = mainElements.querySelector(".form__quit");
@@ -193,10 +193,10 @@ export default () => {
     }
 
     function limpiarCampos() {
-        numeroNota.children[1].value = ""; 
-        boxDate.children[0].value = ""; 
-        firstSelect.value = ""; 
-        secondSelect.innerHTML = ""; 
+        numeroNota.children[1].value = "";
+        boxDate.children[0].value = "";
+        firstSelect.value = "";
+        secondSelect.innerHTML = "";
         solicitante.value = "";
         estado.value = "";
     }
@@ -223,7 +223,7 @@ export default () => {
         return datos;
     }
 
-    
+
     const menuPages = document.querySelector('.menu__pages')
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
@@ -286,9 +286,14 @@ export default () => {
                     method: "POST",
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify(datosForms),
-                }).then(response => { console.log(response) })
+                }).then(response => {
+                    if (response.status === 409) {
+                        alert('El numero de Nota ya se encuentra en la Base de Datos.')
+                    } else if (response.setatus === 201) {
+                        alert('Registro creado exitosamente.')
+                    }
+                })
                 limpiarCampos();
-                alert("Registro agregado éxitosamente.");
                 location.reload();
             }
 
