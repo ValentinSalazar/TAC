@@ -7,9 +7,9 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
   router(window.location.hash)
 })
 
-if (location.hash === '') {
-  alert()
-}
+// if (location.hash === '') {
+//   alert()
+// }
 
 /* Variables */
 const menu = document.querySelector('.menu')

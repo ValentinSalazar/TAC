@@ -289,12 +289,15 @@ export default () => {
                 }).then(response => {
                     if (response.status === 409) {
                         alert('El numero de Nota ya se encuentra en la Base de Datos.')
-                    } else if (response.setatus === 201) {
+                        const nota = document.querySelector('.form__numero-nota').children[1]
+                        nota.value = ''
+                    } else if (response.status === 201) {
                         alert('Registro creado exitosamente.')
+                        limpiarCampos();
+                        location.reload();
                     }
                 })
-                limpiarCampos();
-                location.reload();
+
             }
 
         });
@@ -377,20 +380,24 @@ export default () => {
                 /* PRIORITARIES BUTTON*/
                 divs[i].children[0].addEventListener("click", () => {
                     `Prioritaries button`
-                    alert("Enviado correctamente al apartado de Prioritarios.");
-                    completeRow.remove();
-                    location.reload();
-
-
                     fetch("http://localhost:1337/api/priorities", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(bodyData),
-                    });
-                    fetch(`${url}/` + `${data[i]._id}`, {
-                        method: "DELETE",
-                        headers: { "Content-Type": "application/json" },
-                    });
+                    }).then(res => {
+                        if (res.status === 409) {
+                            alert('Ese numero de nota ya se encuentra en la base de datos.')
+                        } else if (res.status === 200) {
+                            fetch(`${url}/` + `${data[i]._id}`, {
+                                method: "DELETE",
+                                headers: { "Content-Type": "application/json" },
+                            })
+                            alert("Enviado correctamente al apartado de Prioritarios.");
+                            completeRow.remove();
+                            location.reload();
+                        }
+                    })
+
                 });
 
 

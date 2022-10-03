@@ -110,18 +110,28 @@ export default () => {
 
         let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
         divs[i].children[2].addEventListener("click", () => {
-          let completeRow =
-            divs[i].children[2].parentNode.parentNode.parentNode;
+          let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
           completeRow.remove();
-
-
-
-          fetch(`${url}/` + `${data[i]._id}`, {
-            method: "DELETE",
+          console.log(bodyData);
+          fetch("http://localhost:1337/api/finalizados", {
+            method: 'POST',
             headers: { "Content-Type": "application/json" },
-          });
+            body: JSON.stringify(bodyData)
+          }).then( res => { 
+            if (res.status === 409) {
+              alert('Error, vuelve a intentar luego.')
+            } else if (res.status === 201) {
+              fetch(`${url}/` + `${data[i]._id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+              });
+    
+              alert("Registro Prioritario eliminado.");
+            }
+          })
 
-          alert("Registro Prioritario eliminado.");
+
+          
         });
       }
     };
