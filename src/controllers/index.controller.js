@@ -450,21 +450,25 @@ export default () => {
                     const linkInput = document.createElement('input')
                     linkInput.value = `${data[i].link}`
                     bodyData.link = linkInput.value
-                    console.log(bodyData);
                     let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
                     completeRow.remove();
                     fetch("http://localhost:1337/api/finalizados", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(bodyData),
-                    });
+                    })
+                    .then(res => { if (res.status === 201) {
+                        fetch(`${url}/` + `${data[i]._id}`, {
+                            method: "DELETE",
+                            headers: { "Content-Type": "application/json" },
+                        })
+                        alert(`Registro con la Nota: ${data[i].nota} eliminado`);
+                    } else {
+                        alert(`No se pudo enviar el registro al apartado de Eliminados. Intente nuevamente.`)
+                    }})
+                    
 
-                    fetch(`${url}/` + `${data[i]._id}`, {
-                        method: "DELETE",
-                        headers: { "Content-Type": "application/json" },
-                    });
 
-                    alert("Registro eliminado.");
                 });
 
 
