@@ -1,4 +1,10 @@
 /* SVG */
+
+section {
+    position: relative;
+    top: 80px;
+}
+
 .mapa__title {
     color: $primary-color;
     font-size: 3rem;
@@ -7,22 +13,39 @@
     text-align: center;
     margin-top: 1rem;
 }
-.svg__box {
-    width: 50rem;
-    height: 50rem;
-    margin-left: auto;
-    margin-right: auto;
+
+.contenedor__mapa {
+    width: 60rem;
+    height: 80rem;
+    margin: 0 auto;
     border: 3px solid $primary-color;
     border-radius: 0.5rem;
+}
+.svg__box {
+    padding: 1rem;
     display: flex;
     justify-content: center;
-    padding: 1rem;
+    align-items: center;
     svg {
-        width: 50%;
+        width: 80%;
         height: 100%;
         &:hover {
-            cursor: pointer;
             color: #FF8811;
         }
     }
+}
+
+.provincias {
+    cursor: pointer;
+    fill: #72c6ec;
+    stroke: #000000;
+    &:hover {
+        fill: lightblue;
+    }
+}
+
+.caja__informacion { 
+    width: 15rem;
+    height: 10rem;
+    background-color: #e7e7e7;
 }
