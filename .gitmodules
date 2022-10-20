@@ -1,3 +1,0 @@
-[submodule "path_to_submodule"] 
-  path = build/
-  url = https://github.com/FacundoSalazar/TAC.git
