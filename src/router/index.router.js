@@ -4,6 +4,7 @@
  */
 
 /* Imports */
+import login from '../controllers/index.controller.js'
 import home from '../controllers/index.controller.js' // Importo el controlador de home.
 import prioritarios from '../controllers/prioritarios.controller.js' // Importo el controlador de prioritarios
 import finalizados from '../controllers/finalizados.controller.js' // Importo el controlador de finalizados
@@ -35,6 +36,9 @@ const router = (route) => {
         }
         case "#/Mapa": {
             return main.appendChild(mapa())
+        }
+        case "#/login": {
+            return main.appendChild(login())
         }
             
         default:

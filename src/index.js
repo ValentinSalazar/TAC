@@ -1,4 +1,5 @@
 /* Imports */
+import login from './views/login.html';
 import './styles.css' // Importamos todos los estilos.
 import { router } from './router/index.router.js' // Importamos la funcion router.
 router(window.location.hash)
@@ -6,12 +7,17 @@ window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pag
   router(window.location.hash)
 })
 
+// if (location.hash === '') {
+//   alert()
+// }
+
 /* Variables */
 const menu = document.querySelector('.menu')
 const containerLinks = document.querySelector('.menu__pages')
 const menuResponsive = document.querySelector('.menu__responsive')
 const arrayLi = containerLinks.children
 const menuLogo = document.querySelector('.menu__logo')
+
 
 menuResponsive.children[1].style.display = 'none'
 /* Responsive */

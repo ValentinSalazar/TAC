@@ -1,28 +1,158 @@
 /* SVG */
+* {
+    font-family: 'Poppins';
+}
+
+.section__mapa {
+    position: relative;
+    top: 5rem;
+}
+
 .mapa__title {
     color: $primary-color;
     font-size: 3rem;
     font-family: 'Poppins';
     text-transform: uppercase;
     text-align: center;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
-.svg__box {
-    width: 50rem;
-    height: 50rem;
-    margin-left: auto;
-    margin-right: auto;
-    border: 3px solid $primary-color;
-    border-radius: 0.5rem;
+
+
+
+.contenedor__mapa {
+    margin: 0 auto;
+    padding: 1rem;
+    border: 2px solid $primary-color;
+    width: 75%;
+    height: 60rem;
+    border-radius: 1rem;
     display: flex;
     justify-content: center;
-    padding: 1rem;
-    svg {
-        width: 50%;
+    align-items: center;
+
+    .contenedor__mapa-svg {
         height: 100%;
-        &:hover {
-            cursor: pointer;
-            color: #FF8811;
+        width: 75%;
+        resize: both;
+        svg {
+            width: 100%;
+            height: 100%;
         }
     }
+
+    .provincias {
+        cursor: pointer;
+        fill: #72c6ec;
+        stroke: #000000;
+
+        &:hover {
+            fill: lightblue;
+        }
+    }
+
+    .contenedor__estadisticas {
+        margin-right: 10rem;
+        width: 25%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .contenedor__estadisticas-title {
+        font-size: 2rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .contenedor__mapa-informacion {
+        margin: 5rem;
+        text-align: center;
+        width: 100%;
+        height: 50%;
+        font-size: 2rem;
+        border-radius: 1rem;
+        background-color: #57a9cf;
+        box-shadow: $first-shadow;
+    }
+
+
+    .contenedor__mapa-nombre--provincia {
+        color: $secondary-color;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+        margin: 1rem;
+        letter-spacing: 2px;
+        font-weight: 600;
+    }
+
+    .contenedor__mapa-estadisticas {
+        color: $secondary-color;
+        text-align: left;
+        margin: 1rem;
+        margin-left: 2rem;
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+
 }
+
+
+
+
+
+// .contenedor__mapa {
+//     width: 70%;
+//     height: 70rem;
+//     margin: 0 auto;
+//     border: 3px solid $primary-color;
+//     border-radius: 0.5rem;
+// }
+// .svg__box {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100%;
+//     svg {
+//         align-self: center;
+//         padding: 1rem;
+//         min-width: 50%;
+//         height: 100%;
+//         &:hover {
+//             color: #FF8811;
+//         }
+//     }
+// }
+
+//
+
+// .caja__informacion {
+//     width: 20rem;
+//     height: 15rem;
+//     background-color: #e7e7e7;
+//     border-radius: 1rem;
+//     margin: 1rem;
+//     background-color:#72c6ec;
+//     h3 {
+//         padding:1rem;
+//         text-align: center;
+//         font-size: 1.5rem;
+//         font-family: 'Poppins';
+//         color: $secondary-color;
+//     }
+// }
+
+
+// @media screen and (max-width:480px) and (orientation:portrait) {
+//     .svg__box {
+//         width: 100%;
+//         height: 100%;
+//         svg {
+//             height: 50rem;
+//             viewport-fit: auto ;
+//         }
+//     }
+//  }

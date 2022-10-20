@@ -67,25 +67,19 @@ export default () => {
                   <td>${data[i].estadoForm}</td>
                   <td>
                       <div class="main__table-modifiers">
-                          <div>
-                              <span class="material-symbols-outlined">
-                                  check
-                              </span>
-                          </div>
-  
-                          <div>
+                          <div style="background-color:#33a575;">
                               <span class="material-symbols-outlined">
                                   attach_file
                               </span>
                           </div>
   
-                          <div>
+                          <div style= "background-color:#D64933;">
                               <span class="material-symbols-outlined table-icons--center">
                                   delete
                               </span>
                           </div>
   
-                          <div>
+                          <div style="background-color:#FF8811;">
                               <span class="material-symbols-outlined">
                                   edit
                               </span>
@@ -109,19 +103,76 @@ export default () => {
         let estadoForm = completeRow.children[5].innerText;
 
         let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
+
+
+        /* ATTATCH BUTTON */ 
+        divs[i].children[0].addEventListener('click', () => {
+          const linkInput = document.createElement('input')
+          linkInput.placeholder = 'Ingresa un link..'
+          linkInput.value = `${data[i].link}`
+          console.log(linkInput.value);
+          const btnLinkInput = document.createElement('button')
+          btnLinkInput.style.width = '3rem'
+          btnLinkInput.innerText = 'OK'
+          const btnCloseInput = document.createElement('button')
+          btnCloseInput.style.width = '3rem'
+          btnCloseInput.innerText = 'X'
+
+          if (divs[i].children[1].parentElement.contains(linkInput)) {
+            console.log('lo contiene');
+          } else {
+            divs[i].children[1].parentElement.append(linkInput, btnCloseInput, btnLinkInput)
+          }
+
+          const input = completeRow.children[6].children[0].children[4]
+          btnLinkInput.addEventListener('click', () => {
+            const objetoLink = { link: linkInput.value }
+            if (linkInput.value === "") {
+            } else {
+              console.log(objetoLink);
+              fetch(`${url}/` + `${data[i]._id}`, {
+                method: 'PATCH',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(objetoLink)
+              })
+            }
+            alert('Link actualizado correctamente.')
+            location.reload()
+          })
+          btnCloseInput.addEventListener('click', () => {
+            linkInput.remove()
+            btnLinkInput.remove()
+            btnCloseInput.remove()
+          })
+        })
+
+
+        /* DELETE BUTTON */
+        divs[i].children[1].addEventListener('click', () => {
+          
+        })
+
         divs[i].children[2].addEventListener("click", () => {
-          let completeRow =
-            divs[i].children[2].parentNode.parentNode.parentNode;
+          let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
           completeRow.remove();
-
-
-
-          fetch(`${url}/` + `${data[i]._id}`, {
-            method: "DELETE",
+          console.log(bodyData);
+          fetch("http://localhost:1337/api/finalizados", {
+            method: 'POST',
             headers: { "Content-Type": "application/json" },
-          });
+            body: JSON.stringify(bodyData)
+          }).then(res => {
+            if (res.status === 409) {
+              alert('Error, vuelve a intentar luego.')
+            } else if (res.status === 201) {
+              fetch(`${url}/` + `${data[i]._id}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+              });
 
-          alert("Registro Prioritario eliminado.");
+              alert("Registro Prioritario eliminado.");
+            }
+          })
+
         });
       }
     };

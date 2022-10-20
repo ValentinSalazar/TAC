@@ -218,7 +218,9 @@ main {
             text-transform: uppercase;
             box-shadow: $first-shadow;
         }
-
+        tr {
+            height: 1rem;
+        }
         td {
             box-shadow: $first-shadow;
             text-align: center;
@@ -227,6 +229,28 @@ main {
             font-family: 'Poppins';
             max-width: 30rem;
             min-width: 10rem;
+            overflow: hidden;
+        }
+        td:nth-child(5) {
+            div {
+                max-height: 20rem;
+                font-size: 1.3rem;
+                &:hover {
+                    overflow: auto;
+                }
+                
+
+            }
+        }
+        td:nth-child(6) {
+            div {
+                max-height: 20rem;
+                font-size: 1.3rem;
+                &:hover {
+                    overflow: auto;
+                }
+
+            }
         }
 
         td:last-of-type {
@@ -689,7 +713,7 @@ form {
             }
 
             th {
-                margin-top: 0.5rem;
+                margin-top: 1rem;
                 padding: 1rem;
                 display: flex;
                 flex-direction: column;
@@ -703,42 +727,57 @@ form {
                 flex-direction: column;
                 justify-content: center;
                 font-size: 1rem;
+                overflow: scroll;
             }
-
+            td:first-child {
+                position: relative;
+                top: 5px;
+            }
             td:nth-child(2) {
                 position: relative;
-                bottom: -10px;
+                bottom: -20px;
             }
 
             td:nth-child(3) {
                 position: relative;
-                bottom: -25px;
+                bottom: -40px;
             }
 
             td:nth-child(4) {
                 position: relative;
-                bottom: -30px;
+                bottom: -50px;
             }
 
             td:nth-child(5) {
                 position: relative;
-                bottom: -30px;
-
-                &:active {
-                    width: 20rem;
-                    height: 10rem;
+                bottom: -60px;
+                div {
+                    max-height: 20rem;
+                    font-size: 1rem;
+                    &:active {
+                        width: 30rem;
+                        height: 10rem;
+                    }
                 }
             }
 
             td:nth-child(6) {
                 position: relative;
-                bottom: -30px;
+                bottom: -70px;
+                div {
+                    max-height: 20rem;
+                    font-size: 1rem;
+                    &:active {
+                        width: 30rem;
+                        height: 10rem;
+                    }
+                }
             }
 
             td:last-of-type {
                 overflow: hidden;
                 position: relative;
-                bottom: -35px;
+                bottom: -70px;
             }
         }
 

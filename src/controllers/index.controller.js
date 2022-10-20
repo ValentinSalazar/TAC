@@ -20,11 +20,11 @@ export default () => {
     }
     /* Variables */
     const url = "http://localhost:1337/api/registers";
-    const btnClickMain = mainElements.querySelector(".menu__btn"); 
+    const btnClickMain = mainElements.querySelector(".menu__btn");
     const btnFilters = document.querySelector(".box__filters-menu");
-    const aside = document.querySelector("aside"); 
-    const main = document.querySelector("main"); 
-    const homeWindow = window.location.hash; 
+    const aside = document.querySelector("aside");
+    const main = document.querySelector("main");
+    const homeWindow = window.location.hash;
     const btnRegister = mainElements.querySelector(".main__button-register");
     const form = mainElements.querySelector(".none");
     const BtnformQuit = mainElements.querySelector(".form__quit");
@@ -193,10 +193,10 @@ export default () => {
     }
 
     function limpiarCampos() {
-        numeroNota.children[1].value = ""; 
-        boxDate.children[0].value = ""; 
-        firstSelect.value = ""; 
-        secondSelect.innerHTML = ""; 
+        numeroNota.children[1].value = "";
+        boxDate.children[0].value = "";
+        firstSelect.value = "";
+        secondSelect.innerHTML = "";
         solicitante.value = "";
         estado.value = "";
     }
@@ -223,7 +223,7 @@ export default () => {
         return datos;
     }
 
-    
+
     const menuPages = document.querySelector('.menu__pages')
     /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
@@ -286,10 +286,18 @@ export default () => {
                     method: "POST",
                     headers: { "Content-Type": "application/json; charset=UTF-8" },
                     body: JSON.stringify(datosForms),
-                }).then(response => { console.log(response) })
-                limpiarCampos();
-                alert("Registro agregado éxitosamente.");
-                location.reload();
+                }).then(response => {
+                    if (response.status === 409) {
+                        alert('El numero de Nota ya se encuentra en la Base de Datos.')
+                        const nota = document.querySelector('.form__numero-nota').children[1]
+                        nota.value = ''
+                    } else if (response.status === 201) {
+                        alert('Registro creado exitosamente.')
+                        limpiarCampos();
+                        location.reload();
+                    }
+                })
+
             }
 
         });
@@ -319,8 +327,8 @@ export default () => {
                 <td>${data[i].fecha}</td>
                 <td>${data[i].areaResponsable}</td>
                 <td>${data[i].localidad}</td>
-                <td>${data[i].solicitanteForm}</td>
-                <td>${data[i].estadoForm}</td>
+                <td><div>${data[i].solicitanteForm}</div></td>
+                <td><div>${data[i].estadoForm}</div></td>
                 <td>
                     <div class="main__table-modifiers">
                         <div>
@@ -372,20 +380,24 @@ export default () => {
                 /* PRIORITARIES BUTTON*/
                 divs[i].children[0].addEventListener("click", () => {
                     `Prioritaries button`
-                    alert("Enviado correctamente al apartado de Prioritarios.");
-                    completeRow.remove();
-                    location.reload();
-
-
                     fetch("http://localhost:1337/api/priorities", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(bodyData),
-                    });
-                    fetch(`${url}/` + `${data[i]._id}`, {
-                        method: "DELETE",
-                        headers: { "Content-Type": "application/json" },
-                    });
+                    }).then(res => {
+                        if (res.status === 409) {
+                            alert('Ese numero de nota ya se encuentra en la base de datos.')
+                        } else if (res.status === 200) {
+                            fetch(`${url}/` + `${data[i]._id}`, {
+                                method: "DELETE",
+                                headers: { "Content-Type": "application/json" },
+                            })
+                            alert("Enviado correctamente al apartado de Prioritarios.");
+                            completeRow.remove();
+                            location.reload();
+                        }
+                    })
+
                 });
 
 
@@ -438,21 +450,25 @@ export default () => {
                     const linkInput = document.createElement('input')
                     linkInput.value = `${data[i].link}`
                     bodyData.link = linkInput.value
-                    console.log(bodyData);
                     let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
                     completeRow.remove();
                     fetch("http://localhost:1337/api/finalizados", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(bodyData),
-                    });
+                    })
+                    .then(res => { if (res.status === 201) {
+                        fetch(`${url}/` + `${data[i]._id}`, {
+                            method: "DELETE",
+                            headers: { "Content-Type": "application/json" },
+                        })
+                        alert(`Registro con la Nota: ${data[i].nota} eliminado`);
+                    } else {
+                        alert(`No se pudo enviar el registro al apartado de Eliminados. Intente nuevamente.`)
+                    }})
+                    
 
-                    fetch(`${url}/` + `${data[i]._id}`, {
-                        method: "DELETE",
-                        headers: { "Content-Type": "application/json" },
-                    });
 
-                    alert("Registro eliminado.");
                 });
 
 
