@@ -2,6 +2,7 @@ import mapa from "../views/mapa.html";
 
 export default () => {
   const mapsElements = document.createElement("section");
+  mapsElements.classList.add('section__mapa')
   mapsElements.innerHTML = mapa;
 
 
@@ -18,7 +19,7 @@ export default () => {
 
 
     // Selectores de cada provincia.
-    const contenedorProvincia = mapsElements.querySelector('.contenedor__mapa')
+    const contenedorInformacion = mapsElements.querySelector('.contenedor__mapa-informacion')
     const caba = mapsElements.querySelector('#caba')
     const buenosAires = mapsElements.querySelector('#buenos-aires')
     const santaFe = mapsElements.querySelector('#santa-fe')
@@ -42,18 +43,29 @@ export default () => {
     const mendoza = mapsElements.querySelector('#mendoza')
     const neuquen = mapsElements.querySelector('#neuquen')
 
-    function informarProvincias(provincia) {
-      const cajaInformacion = document.createElement('div')
-      cajaInformacion.classList.add('caja__informacion')
-      const nombreProvincia = document.createElement('h3')
-      nombreProvincia.innerText = `${limpiarTexto(provincia.id)}`
-      nombreProvincia.style.textAlign = 'center'
-      nombreProvincia.style.margin = '1rem'
-
-      cajaInformacion.append(nombreProvincia)
+    let objetoRegistros = {};
 
 
-      return cajaInformacion
+    function titleCase(cadena) {
+      let cadenaSeparada = cadena.toLowerCase().split(' ')
+      for (let i = 0; i < cadenaSeparada.length; i++) {
+        cadenaSeparada[i] = cadenaSeparada[i][0].toUpperCase() + cadenaSeparada[i].substr(1)
+      }
+      let cadenaFinal = cadenaSeparada.join(' ')
+      return cadenaFinal
+    }
+
+    function limpiarProvincias(contenedor) {
+      while (contenedor.children[1]) {
+        contenedor.children[1].remove()
+      }
+    }
+
+    function datearProvincia(provincia) {
+      const nombreProvincia = document.createElement('h2')
+      nombreProvincia.innerText = limpiarTexto(provincia)
+      nombreProvincia.classList.add('contenedor__mapa-nombre--provincia')
+      return nombreProvincia
     }
 
 
@@ -66,30 +78,78 @@ export default () => {
       return cadenaFinal
     }
 
+
+
     const provincias = [
       caba, santaFe, corrientes, cordoba, mendoza, neuquen, sanLuis, laRioja,
       sanJuan, chaco, rio, tucuman, formosa, jujuy, stoEstero, catamarca, entreRios,
       laPampa, buenosAires, misiones, rioNegro, salta]
 
+    // Inicializo la lista y el diccionario.
+    let nombreProvincias = [];
+    let objetoProvincias = {}
+
+    for (let i = 0; i < provincias.length; i++) {
+      // Mete el nombre de las provincias en una lista.
+      nombreProvincias.push(limpiarTexto(provincias[i].id).slice(0, -1))
+    }
+
+    for (let i = 0; i < nombreProvincias.length; i++) {
+      // Agrega el nombre de las provincias al diccionario.
+      objetoProvincias[nombreProvincias] = `${nombreProvincias}`
+    }
 
     for (let i = 0; i < provincias.length; i++) {
       provincias[i].classList.add('provincias')
       provincias[i].addEventListener('mouseover', () => {
-        const informacionCreada = informarProvincias(provincias[i])
-        
-        let verificador = contenedorProvincia.contains(informacionCreada)
-        
-        if (! verificador) {
-          // contenedorProvincia.append(informacionCreada)
-          console.log(contenedorProvincia);
-          contenedorProvincia.append(informacionCreada)
-          verificador = false
-        } else {
-          console.log('No lo contiene');
-        }
+        const informacionCreada = datearProvincia(provincias[i].id)
+        contenedorInformacion.children[0].innerText = informacionCreada.innerText
+        provincias[i].addEventListener('mouseout', () => {
 
+        })
       })
     }
+
+    // Arrow function que suma la cantidad de registros y retorna el total. La utilizo dentro de otra funcion.
+    const estadisticasTotales = (generales, prioritarios, finalizados) => generales + prioritarios + finalizados 
+
+    function mostrarEstadisticasTotales(registros) {
+
+      const longitudGenerales = registros.generales.length
+      const longitudPrioritarios = registros.prioritarios.length
+      const longitudFinalizados = registros.finalizados.length
+      const longitudTotal = estadisticasTotales(longitudGenerales, longitudPrioritarios, longitudFinalizados)
+      return longitudTotal
+    }
+    function generarHTMLEstadisticasTotales(contenedor, informacion) {
+      contenedor.append(informacion)
+    }
+
+    function filtrarProvincias(provincias, registros) {
+      for (let i = 0; i < provincias.length; i++) {
+        provincias[i].addEventListener('mouseover', () => {
+          const registrosGenerales = registros.generales
+          const registrosPrioritarios = registros.prioritarios
+          const registrosFinalizados = registros.finalizados
+          // VEAMOS LOS METODOS DE LOS OBJETOS Y LUEGO FILTRAMOS POR NOMBRE DE PROVINCIAS.
+          // ESA FILTRACION NOS RETORNARA LA CANTIDAD DE REGISTROS QUE TIENE ESA PROVINCIA.
+          // YA SEAN REGISTROS GENERALES, PRIORITARIOS Y FINALIZADOS.
+        })
+      }
+    }
+
+    fetch('http://localhost:1337/api/finalizados-cantidad')
+      .then((res) => res.json())
+      .then((registros) => { 
+
+        const cantidadRegistrosTotales = mostrarEstadisticasTotales(registros)
+        const tituloRegistrosTotales = mapsElements.querySelector('.contenedor__estadisticas-title')
+        generarHTMLEstadisticasTotales(tituloRegistrosTotales, cantidadRegistrosTotales)
+
+        filtrarProvincias(provincias, registros)
+        
+       })
+      .catch((err) => console.log(err));
   }
 
   return mapsElements;
