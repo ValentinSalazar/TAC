@@ -10,6 +10,7 @@ import prioritarios from '../controllers/prioritarios.controller.js' // Importo 
 import finalizados from '../controllers/finalizados.controller.js' // Importo el controlador de finalizados
 import mapa from '../controllers/mapa.controller' // Importo el controlador de mapa
 import error from '../controllers/error.controller.js'
+import mapaFerroviario from '../controllers/mapaFerroviario.controller.js'
 let main = document.querySelector("main") // Le creo un let ya que una constante no se puede modificar.
 
 
@@ -37,9 +38,13 @@ const router = (route) => {
         case "#/Mapa": {
             return main.appendChild(mapa())
         }
+        case '#/MapaFerroviario': {
+            return main.appendChild(mapaFerroviario())
+        }
         case "#/login": {
             return main.appendChild(login())
         }
+        
             
         default:
             {

@@ -46,6 +46,15 @@ export default () => {
     let objetoRegistros = {};
 
 
+    function titleCase2(provincia) {
+      let cadenaSpliteada = provincia.split('-')
+      for (let palabra in cadenaSpliteada) {
+        cadenaSpliteada[palabra] = cadenaSpliteada[palabra][0].toUpperCase() + cadenaSpliteada[palabra].substr(1)
+      }
+      cadenaSpliteada = cadenaSpliteada.join(' ')
+      return cadenaSpliteada
+    }
+
     function titleCase(cadena) {
       let cadenaSeparada = cadena.toLowerCase().split(' ')
       for (let i = 0; i < cadenaSeparada.length; i++) {
@@ -111,7 +120,7 @@ export default () => {
     }
 
     // Arrow function que suma la cantidad de registros y retorna el total. La utilizo dentro de otra funcion.
-    const estadisticasTotales = (generales, prioritarios, finalizados) => generales + prioritarios + finalizados 
+    const estadisticasTotales = (generales, prioritarios, finalizados) => generales + prioritarios + finalizados
 
     function mostrarEstadisticasTotales(registros) {
 
@@ -125,32 +134,75 @@ export default () => {
       contenedor.append(informacion)
     }
 
-    function filtrarProvincias(provincias, registros) {
+    function filtrarProvincias(provincias, registros, tipo) {
+      // VEAMOS LOS METODOS DE LOS OBJETOS Y LUEGO FILTRAMOS POR NOMBRE DE PROVINCIAS.
+      // ESA FILTRACION NOS RETORNARA LA CANTIDAD DE REGISTROS QUE TIENE ESA PROVINCIA.
+      // YA SEAN REGISTROS GENERALES, PRIORITARIOS Y FINALIZADOS.
+      let contador = 0
       for (let i = 0; i < provincias.length; i++) {
         provincias[i].addEventListener('mouseover', () => {
-          const registrosGenerales = registros.generales
-          const registrosPrioritarios = registros.prioritarios
-          const registrosFinalizados = registros.finalizados
-          // VEAMOS LOS METODOS DE LOS OBJETOS Y LUEGO FILTRAMOS POR NOMBRE DE PROVINCIAS.
-          // ESA FILTRACION NOS RETORNARA LA CANTIDAD DE REGISTROS QUE TIENE ESA PROVINCIA.
-          // YA SEAN REGISTROS GENERALES, PRIORITARIOS Y FINALIZADOS.
+          let cadaProvincia = titleCase2(provincias[i].id)
+          contador = 0
+          for (let j = 0; j < registros.length; j++) {
+            if (cadaProvincia === registros[j].localidad) {
+              contador += 1
+            }
+          }
+          if (tipo === 'Generales') {
+            contenedorInformacion.children[1].innerText = `Registros Generales: ${contador}`
+          } else if (tipo === 'Prioritarios') {
+            contenedorInformacion.children[2].innerText = `Registros Prioritarios: ${contador}`
+          } else if (tipo === 'Finalizados') {
+            contenedorInformacion.children[3].innerText = `Registros Finalizados: ${contador}`
+          }
         })
       }
     }
 
     fetch('http://localhost:1337/api/finalizados-cantidad')
       .then((res) => res.json())
-      .then((registros) => { 
-
+      .then((registros) => {
         const cantidadRegistrosTotales = mostrarEstadisticasTotales(registros)
         const tituloRegistrosTotales = mapsElements.querySelector('.contenedor__estadisticas-title')
         generarHTMLEstadisticasTotales(tituloRegistrosTotales, cantidadRegistrosTotales)
-
-        filtrarProvincias(provincias, registros)
-        
-       })
-      .catch((err) => console.log(err));
+        // pasar por parametro en ves de todos los registros, enviar: 
+        // registros.generales:
+        filtrarProvincias(provincias, registros.generales, 'Generales')
+        // registros.prioritarios:
+        filtrarProvincias(provincias, registros.prioritarios, 'Prioritarios')
+        // //registros.finalizados:
+        filtrarProvincias(provincias, registros.finalizados, 'Finalizados')
+        // hara que el codigo sea mas eficiente.
+      })
+      .catch((err) => console.log(err))
   }
 
   return mapsElements;
 };
+
+
+// contadorGenerales = 0
+          // for (let j = 0; j < registrosGenerales.length; j++) {
+          //   let provinciaGenerales = titleCase2(provincias[i].id)
+          //   if (registrosGenerales[j].localidad === provinciaGenerales) {
+          //     contadorGenerales += 1
+          //   }
+          //   contenedorInformacion.children[1].innerText = `Registros Generales: ${contadorGenerales}`
+          // }
+          // contadorPrioritarios = 0
+          // for (let k = 0; k < registrosPrioritarios.length; k++) {
+          //   let provinciaPrioritarios = titleCase2(provincias[i].id)
+          //   if (registrosPrioritarios[k].localidad === provinciaPrioritarios) {
+          //     contadorPrioritarios += 1
+          //   }
+          // }
+          // contenedorInformacion.children[2].innerText = `Registros Prioritarios: ${contadorPrioritarios}`
+          // contadorFinalizados = 0
+          // for (let f = 0; f < registrosFinalizados.length; f++) {
+          //   let provinciasFinalizados = titleCase2(provincias[i].id)
+          //   console.log(provinciasFinalizados);
+          //   if (registrosFinalizados[f].localidad === provinciasFinalizados) {
+          //     contadorFinalizados += 1
+          //   }
+          // }
+          // contenedorInformacion.children[3].innerText = `Registros Finalizados: ${contadorFinalizados}`
