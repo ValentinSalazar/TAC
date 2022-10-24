@@ -134,7 +134,7 @@ export default () => {
       contenedor.append(informacion)
     }
 
-    function filtrarProvincias(provincias, registros) {
+    function filtrarProvincias(provincias, registros, tipo) {
       // VEAMOS LOS METODOS DE LOS OBJETOS Y LUEGO FILTRAMOS POR NOMBRE DE PROVINCIAS.
       // ESA FILTRACION NOS RETORNARA LA CANTIDAD DE REGISTROS QUE TIENE ESA PROVINCIA.
       // YA SEAN REGISTROS GENERALES, PRIORITARIOS Y FINALIZADOS.
@@ -148,6 +148,13 @@ export default () => {
               contador += 1
             }
           }
+          if (tipo === 'Generales') {
+            contenedorInformacion.children[1].innerText = `Registros Generales: ${contador}`
+          } else if (tipo === 'Prioritarios') {
+            contenedorInformacion.children[2].innerText = `Registros Prioritarios: ${contador}`
+          } else if (tipo === 'Finalizados') {
+            contenedorInformacion.children[3].innerText = `Registros Finalizados: ${contador}`
+          }
         })
       }
     }
@@ -160,11 +167,11 @@ export default () => {
         generarHTMLEstadisticasTotales(tituloRegistrosTotales, cantidadRegistrosTotales)
         // pasar por parametro en ves de todos los registros, enviar: 
         // registros.generales:
-        filtrarProvincias(provincias, registros.generales)
+        filtrarProvincias(provincias, registros.generales, 'Generales')
         // registros.prioritarios:
-        filtrarProvincias(provincias, registros.prioritarios)
+        filtrarProvincias(provincias, registros.prioritarios, 'Prioritarios')
         // //registros.finalizados:
-        filtrarProvincias(provincias, registros.finalizados)
+        filtrarProvincias(provincias, registros.finalizados, 'Finalizados')
         // hara que el codigo sea mas eficiente.
       })
       .catch((err) => console.log(err))
