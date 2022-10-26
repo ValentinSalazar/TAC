@@ -3,7 +3,6 @@
 @import './login'; // Trae los estilos del login.
 @import './mapa'; // Trae los estilos de la sección mapas.
 @import './finalizados'; // Trae todos los estilos de la seccion finalizados.
-@import './mapaFerroviario.scss';
 
 // Reset default values
 * {
@@ -116,12 +115,10 @@ header {
         }
 
         .box__filters-box {
-            width: 25rem;
+            width: 100%;
             border: 1.5px solid $secondary-color;
             border-bottom: none;
             border-radius: 0.2rem;
-            margin-left: auto;
-            margin-right: auto;
 
             div {
                 display: flex;

@@ -1,27 +1,21 @@
-/* Imports */
-import login from './views/login.html';
-import './styles.css' // Importamos todos los estilos.
-import { router } from './router/index.router.js' // Importamos la funcion router.
+import './styles.css' 
+import { router } from './router/index.router.js' 
 router(window.location.hash)
-window.addEventListener('hashchange', () => { // Cuando el usuario cambia de pagina.
+window.addEventListener('hashchange', () => {
   router(window.location.hash)
 })
 
-// if (location.hash === '') {
-//   alert()
-// }
 
-/* Variables */
+
 const menu = document.querySelector('.menu')
 const containerLinks = document.querySelector('.menu__pages')
 const menuResponsive = document.querySelector('.menu__responsive')
 const arrayLi = containerLinks.children
-const menuLogo = document.querySelector('.menu__logo')
 
 
 menuResponsive.children[1].style.display = 'none'
-/* Responsive */
-menuResponsive.children[0].addEventListener('click', () => { // Terminarlo.
+
+menuResponsive.children[0].addEventListener('click', () => { 
   menuResponsive.children[0].style.display = 'none'
   menuResponsive.children[1].style.display = 'inline'
   menu.insertAdjacentElement('afterend', containerLinks)
@@ -44,7 +38,4 @@ menuResponsive.children[0].addEventListener('click', () => { // Terminarlo.
     menuResponsive.children[0].style.display = 'inline'
     containerLinks.remove()
   })
-
-
 })
-
