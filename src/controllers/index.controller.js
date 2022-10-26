@@ -225,7 +225,6 @@ export default () => {
 
 
     const menuPages = document.querySelector('.menu__pages')
-    /* Events Listener */
     if (homeWindow == "" || homeWindow == "#/") {
         // Reseteo los estilos para que no se superpongan.
         main.classList.remove("main__with-filters");
@@ -302,11 +301,109 @@ export default () => {
 
         });
 
+        function eliminarFilas(filas) {
+            for (let i = 1; i < filas.length; i++) {
+                filas[i].remove()
+            }
+        }
+
+        function ordenarRegistros(data) {
+            const boxFilters = document.querySelector('.box__filters-box')
+            let arrayFilas = mainElements.querySelectorAll('tr')
+            let arrayObjetos = [data]
+            boxFilters.children[0].children[1].addEventListener('click', () => {
+                boxFilters.children[0].classList.toggle('menorAMayor')
+                eliminarFilas(arrayFilas)
+                let registrosOrdenados = arrayObjetos.slice()
+                mostrarData(registrosOrdenados[0].sort((a, b) => {
+                    if (boxFilters.children[0].classList.length === 2) return a.nota - b.nota
+                    return b.nota - a.nota
+
+                }))
+            })
+            boxFilters.children[1].children[1].addEventListener('click', () => {
+                boxFilters.children[1].classList.toggle('actualAVieja')
+                let registrosOrdenados = arrayObjetos.slice()
+                eliminarFilas(arrayFilas)
+                mostrarData(registrosOrdenados[0].sort((a, b) => {
+                    let primerFecha = a.fecha
+                    let segundaFecha = b.fecha
+                    if (boxFilters.children[1].classList.length === 2) {
+                        if (primerFecha < segundaFecha) return 1
+                        if (primerFecha > segundaFecha) return -1
+                        return 0
+                    } else {
+                        if (primerFecha < segundaFecha) return -1
+                        if (primerFecha > segundaFecha) return 1
+                        return 0
+                    }
+                }))
+            })
+            boxFilters.children[2].children[1].addEventListener('click', () => {
+                boxFilters.children[2].classList.toggle('aHastaZ')
+                let registrosOrdenados = arrayObjetos.slice()
+                eliminarFilas(arrayFilas)
+                mostrarData(registrosOrdenados[0].sort((a, b) => {
+                    let primerCadena = a.areaResponsable
+                    let segundaCadena = b.areaResponsable
+                    if (boxFilters.children[2].classList.length === 2) return primerCadena.localeCompare(segundaCadena)
+                    return segundaCadena.localeCompare(primerCadena)
+                }))
+            })
+            boxFilters.children[3].children[1].addEventListener('click', () => {
+                boxFilters.children[3].classList.toggle('aHastaZ')
+                eliminarFilas(arrayFilas)
+                let registrosOrdenados = arrayObjetos.slice()
+                mostrarData(registrosOrdenados[0].sort((a, b) => {
+                    let primerCadena = a.localidad
+                    let segundaCadena = b.localidad
+                    if (boxFilters.children[3].classList.length === 2) return primerCadena.localeCompare(segundaCadena)
+                    return segundaCadena.localeCompare(primerCadena)
+                }))
+            })
+        }
+
+
+
+        // Terminar la funcion de barra de busqueda.
+        function buscarRegistros() {
+            // const input = document.querySelector('#searchBar')
+            // let filter = input.value
+            // let table = mainElements.querySelector('.main__table')
+            // let tr = table.getElementsByTagName('tr')
+            // input.addEventListener('keyup', () => {
+            //     for (let i = 0; i < tr.length; i++) {
+            //         let td = tr[i].getElementsByTagName('td')[0]
+            //         // if (td.value === input.value) {
+            //         //     console.log('lo contiene');
+            //         // } 
+            //     }
+            // })
+            // for (let i = 0; i < tr.length; i++) {
+            //     let td = tr[i].getElementsByTagName('td')[0]
+            //     if (td) {
+            //         let txtValue = td.textContent || td.innerText;
+            //         if (txtValue.indexOf(filter) > -1) {
+            //             tr[i].style.display = ''
+            //         } else {
+            //             tr[i].style.display = 'none';
+            //         }
+            //     }
+
+            // }
+        }
+
         // GET Method (General registers.)
         fetch(url)
             .then((res) => res.json())
-            .then((registros) => mostrarData(registros))
+            .then((registros) => {
+                mostrarData(registros)
+                ordenarRegistros(registros)
+                // buscarRegistros()
+            })
             .catch((err) => console.log(err));
+
+
 
         const mostrarData = (data) => {
             let body = `
@@ -457,16 +554,18 @@ export default () => {
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(bodyData),
                     })
-                    .then(res => { if (res.status === 201) {
-                        fetch(`${url}/` + `${data[i]._id}`, {
-                            method: "DELETE",
-                            headers: { "Content-Type": "application/json" },
+                        .then(res => {
+                            if (res.status === 201) {
+                                fetch(`${url}/` + `${data[i]._id}`, {
+                                    method: "DELETE",
+                                    headers: { "Content-Type": "application/json" },
+                                })
+                                alert(`Registro con la Nota: ${data[i].nota} eliminado`);
+                            } else {
+                                alert(`No se pudo enviar el registro al apartado de Eliminados. Intente nuevamente.`)
+                            }
                         })
-                        alert(`Registro con la Nota: ${data[i].nota} eliminado`);
-                    } else {
-                        alert(`No se pudo enviar el registro al apartado de Eliminados. Intente nuevamente.`)
-                    }})
-                    
+
 
 
                 });
