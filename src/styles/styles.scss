@@ -627,6 +627,11 @@ form {
     align-items: center;
 }
 
+.rotador {
+    transform: translateY(-90);
+    background-color: #000000;
+}
+
 
 /* Mobiles */
 @media screen and (max-width:480px) and (orientation:portrait) {
