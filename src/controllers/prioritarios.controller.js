@@ -1,5 +1,5 @@
 import viewPrioritarios from "../views/prioritarios.html";
-
+import ordenarRegistros from '../helpers/ordenarRegistros.js';
 export default () => {
   const url = "http://localhost:1337/api/priorities";
   const prioritariosElements = document.createElement("section");
@@ -43,7 +43,7 @@ export default () => {
       .then((res) => res.json())
       .then((prioritarios) => {
         mostrarData(prioritarios)
-        ordenarRegistros(prioritarios)
+        ordenarRegistros(prioritariosElements,prioritarios)
       })
       .catch((err) => console.log(err));
 
@@ -113,7 +113,6 @@ export default () => {
           const linkInput = document.createElement('input')
           linkInput.placeholder = 'Ingresa un link..'
           linkInput.value = `${data[i].link}`
-          console.log(linkInput.value);
           const btnLinkInput = document.createElement('button')
           btnLinkInput.style.width = '3rem'
           btnLinkInput.innerText = 'OK'
@@ -122,7 +121,6 @@ export default () => {
           btnCloseInput.innerText = 'X'
 
           if (divs[i].children[1].parentElement.contains(linkInput)) {
-            console.log('lo contiene');
           } else {
             divs[i].children[1].parentElement.append(linkInput, btnCloseInput, btnLinkInput)
           }
@@ -132,7 +130,6 @@ export default () => {
             const objetoLink = { link: linkInput.value }
             if (linkInput.value === "") {
             } else {
-              console.log(objetoLink);
               fetch(`${url}/` + `${data[i]._id}`, {
                 method: 'PATCH',
                 headers: { "Content-Type": "application/json" },
@@ -154,8 +151,6 @@ export default () => {
         divs[i].children[1].addEventListener("click", () => {
           let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
           completeRow.remove();
-          console.log(data[i]);
-          console.log(bodyData);
           fetch("http://localhost:1337/api/finalizados", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
