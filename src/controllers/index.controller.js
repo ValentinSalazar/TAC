@@ -30,7 +30,6 @@ export default () => {
     const BtnformQuit = mainElements.querySelector(".form__quit");
     const numeroNota = mainElements.querySelector(".form__numero-nota");
     const btnToday = mainElements.querySelector(".form__button-today");
-    const area = mainElements.querySelector(".form__area");
     const firstSelect = mainElements.querySelector(".form__area input");
     const secondSelect = mainElements.querySelector(".form__location select");
     const solicitante = mainElements.querySelector(".form__solicitante textarea");
@@ -39,9 +38,7 @@ export default () => {
     const boxDate = mainElements.querySelector(".form__date-box");
     const dateToday = new Date().toISOString().substring(0, 10);
     const table = mainElements.querySelector(".main__table");
-    const cleanBtn = btnForms.children[0];
     const addBtn = btnForms.children[1];
-    const body = document.querySelector('body')
     const localidades = [
         "...",
         "CABA",
@@ -57,6 +54,7 @@ export default () => {
         "Salta",
         "Jujuy",
         "Catamarca",
+        "Tucuman",
         "Santiago del Estero",
         "Cordoba",
         "La Rioja",
@@ -64,13 +62,7 @@ export default () => {
         "San Luis",
         "Rio Negro",
         "Neuquen",
-        "Chubut",
-        "Santa Cruz",
-        "Tierra del Fuego",
     ];
-
-    const datosForms = {};
-
     const editForm = document.createElement('div')
     editForm.style.display = 'flex'
     const titleEditForm = document.createElement('h3')
@@ -306,7 +298,6 @@ export default () => {
                 filas[i].remove()
             }
         }
-
         function ordenarRegistros(data) {
             const boxFilters = document.querySelector('.box__filters-box')
             let arrayFilas = mainElements.querySelectorAll('tr')
@@ -320,6 +311,12 @@ export default () => {
                     return b.nota - a.nota
 
                 }))
+                let clase = boxFilters.children[0].classList.contains('menorAMayor')
+                if (clase) {
+                    boxFilters.children[0].children[1].style.transform = 'rotate(180deg)'
+                } else {
+                    boxFilters.children[0].children[1].style.transform = 'rotate(0deg)'
+                }
             })
             boxFilters.children[1].children[1].addEventListener('click', () => {
                 boxFilters.children[1].classList.toggle('actualAVieja')
@@ -338,6 +335,12 @@ export default () => {
                         return 0
                     }
                 }))
+                let clase = boxFilters.children[1].classList.contains('actualAVieja')
+                if (clase) {
+                    boxFilters.children[1].children[1].style.transform = 'rotate(180deg)'
+                } else {
+                    boxFilters.children[1].children[1].style.transform = 'rotate(0deg)'
+                }
             })
             boxFilters.children[2].children[1].addEventListener('click', () => {
                 boxFilters.children[2].classList.toggle('aHastaZ')
@@ -349,6 +352,12 @@ export default () => {
                     if (boxFilters.children[2].classList.length === 2) return primerCadena.localeCompare(segundaCadena)
                     return segundaCadena.localeCompare(primerCadena)
                 }))
+                let clase = boxFilters.children[2].classList.contains('aHastaZ')
+                if (clase) {
+                    boxFilters.children[2].children[1].style.transform = 'rotate(180deg)'
+                } else {
+                    boxFilters.children[2].children[1].style.transform = 'rotate(0deg)'
+                }
             })
             boxFilters.children[3].children[1].addEventListener('click', () => {
                 boxFilters.children[3].classList.toggle('aHastaZ')
@@ -360,38 +369,35 @@ export default () => {
                     if (boxFilters.children[3].classList.length === 2) return primerCadena.localeCompare(segundaCadena)
                     return segundaCadena.localeCompare(primerCadena)
                 }))
+                let clase = boxFilters.children[3].classList.contains('aHastaZ')
+                if (clase) {
+                    boxFilters.children[3].children[1].style.transform = 'rotate(180deg)'
+                } else {
+                    boxFilters.children[3].children[1].style.transform = 'rotate(0deg)'
+                }
             })
         }
 
 
-
-        // Terminar la funcion de barra de busqueda.
-        function buscarRegistros() {
-            // const input = document.querySelector('#searchBar')
-            // let filter = input.value
-            // let table = mainElements.querySelector('.main__table')
-            // let tr = table.getElementsByTagName('tr')
-            // input.addEventListener('keyup', () => {
-            //     for (let i = 0; i < tr.length; i++) {
-            //         let td = tr[i].getElementsByTagName('td')[0]
-            //         // if (td.value === input.value) {
-            //         //     console.log('lo contiene');
-            //         // } 
-            //     }
-            // })
-            // for (let i = 0; i < tr.length; i++) {
-            //     let td = tr[i].getElementsByTagName('td')[0]
-            //     if (td) {
-            //         let txtValue = td.textContent || td.innerText;
-            //         if (txtValue.indexOf(filter) > -1) {
-            //             tr[i].style.display = ''
-            //         } else {
-            //             tr[i].style.display = 'none';
-            //         }
-            //     }
-
-            // }
+        const barraBusqueda = document.querySelector('#searchBar')
+        const buscarRegistros = (data) => {
+            let body = ''
+            for (let i = 0; i < data.length; i++) {
+                body += `
+                    <tr>
+                        <td>${data[i].nota}</td>
+                        <td>${data[i].fecha}</td>
+                        <td>${data[i].areaResponsable}</td>
+                        <td>${data[i].localidad}</td>
+                        <td><div>${data[i].solicitanteForm}</div></td>
+                        <td><div>${data[i].estadoForm}</div></td>
+                    <tr>
+                `
+            }
+            mainElements.querySelector('tbody').innerHTML = body
         }
+        let tbody = mainElements.getElementsByTagName('tbody')
+
 
         // GET Method (General registers.)
         fetch(url)
@@ -399,12 +405,9 @@ export default () => {
             .then((registros) => {
                 mostrarData(registros)
                 ordenarRegistros(registros)
-                // buscarRegistros()
+                // buscarRegistros(registros)
             })
             .catch((err) => console.log(err));
-
-
-
         const mostrarData = (data) => {
             let body = `
             <tr>
@@ -458,7 +461,6 @@ export default () => {
                     `;
             }
             mainElements.querySelector(".main__table").innerHTML = body;
-
             const divs = document.querySelectorAll(".main__table-modifiers");
             for (let i = 0; i < divs.length; i++) {
                 let completeRow = divs[i].parentNode.parentNode;
@@ -468,15 +470,12 @@ export default () => {
                 let localidad = completeRow.children[3].innerText;
                 let solicitanteForm = completeRow.children[4].innerText;
                 let estadoForm = completeRow.children[5].innerText
-                let link = completeRow.children[6].children[0].children[1]
-                let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
 
-
-
-
+                let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm};
                 /* PRIORITARIES BUTTON*/
                 divs[i].children[0].addEventListener("click", () => {
-                    `Prioritaries button`
+                    if (bodyData) { bodyData['link'] = data[i].link }
+                        `Prioritaries button`
                     fetch("http://localhost:1337/api/priorities", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -496,10 +495,6 @@ export default () => {
                     })
 
                 });
-
-
-
-
                 /* ATTATCH BUTTON */
                 divs[i].children[1].addEventListener('click', () => {
                     const linkInput = document.createElement('input')
@@ -513,7 +508,6 @@ export default () => {
                     btnCloseInput.innerText = 'X'
 
                     if (divs[i].children[1].parentElement.contains(linkInput)) {
-                        console.log('lo contiene');
                     } else {
                         divs[i].children[1].parentElement.append(linkInput, btnCloseInput, btnLinkInput)
                     }
@@ -538,10 +532,6 @@ export default () => {
                         btnCloseInput.remove()
                     })
                 })
-
-
-
-
                 /* DELETE BUTTON */
                 divs[i].children[2].addEventListener("click", () => {
                     const linkInput = document.createElement('input')
@@ -568,11 +558,7 @@ export default () => {
 
 
 
-                });
-
-
-
-
+                })
                 /* EDIT BUTTON */
                 divs[i].children[3].addEventListener('click', (e) => {
                     titleEditForm.innerText = `Editar Registro con Nota: ${data[i].nota}`
@@ -605,13 +591,11 @@ export default () => {
                         location.reload()
                     })
                 })
-
-
-
             }
         };
 
-
     }
     return mainElements;
+    
 };
+

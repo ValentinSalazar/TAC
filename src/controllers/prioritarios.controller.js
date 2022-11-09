@@ -41,7 +41,10 @@ export default () => {
     // GET Method (Priorities Registers)
     fetch(url)
       .then((res) => res.json())
-      .then((prioritarios) => mostrarData(prioritarios))
+      .then((prioritarios) => {
+        mostrarData(prioritarios)
+        ordenarRegistros(prioritarios)
+      })
       .catch((err) => console.log(err));
 
     const mostrarData = (data) => {
@@ -105,7 +108,7 @@ export default () => {
         let bodyData = { nota, fecha, areaResponsable, localidad, solicitanteForm, estadoForm, };
 
 
-        /* ATTATCH BUTTON */ 
+        /* ATTATCH BUTTON */
         divs[i].children[0].addEventListener('click', () => {
           const linkInput = document.createElement('input')
           linkInput.placeholder = 'Ingresa un link..'
@@ -148,18 +151,15 @@ export default () => {
 
 
         /* DELETE BUTTON */
-        divs[i].children[1].addEventListener('click', () => {
-          
-        })
-
-        divs[i].children[2].addEventListener("click", () => {
+        divs[i].children[1].addEventListener("click", () => {
           let completeRow = divs[i].children[2].parentNode.parentNode.parentNode;
           completeRow.remove();
+          console.log(data[i]);
           console.log(bodyData);
           fetch("http://localhost:1337/api/finalizados", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(bodyData)
+            body: JSON.stringify(data[i])
           }).then(res => {
             if (res.status === 409) {
               alert('Error, vuelve a intentar luego.')
@@ -174,8 +174,241 @@ export default () => {
           })
 
         });
+
+
+
+        /* EDIT BUTTONN */
+        const editForm = document.createElement('div')
+        editForm.style.display = 'flex'
+        const titleEditForm = document.createElement('h3')
+        titleEditForm.innerText = ''
+
+        const firstDiv = document.createElement('div')
+        firstDiv.style.display = 'flex'
+        firstDiv.style.flexDirection = 'row'
+
+        const divNota = document.createElement('div')
+        divNota.style.display = 'flex'
+        divNota.style.flexDirection = 'column'
+        divNota.style.justifyContent = 'center'
+        divNota.style.alignItems = 'center'
+        const labelNota = document.createElement('label')
+        labelNota.innerText = 'Nota'
+        const editNota = document.createElement('textarea')
+        editNota.classList.add('textarea')
+        divNota.append(labelNota, editNota)
+
+        const divFecha = document.createElement('div')
+        divFecha.style.display = 'flex'
+        divFecha.style.flexDirection = 'column'
+        divFecha.style.alignItems = 'center'
+        const labelFecha = document.createElement('label')
+        labelFecha.innerText = 'Fecha de Entrada'
+        const editFecha = document.createElement('textarea')
+        editFecha.classList.add('textarea')
+        divFecha.append(labelFecha, editFecha)
+
+        firstDiv.append(divNota, divFecha)
+
+        const secondDiv = document.createElement('div')
+        secondDiv.style.display = 'flex'
+        secondDiv.style.justifyContent = 'center'
+        secondDiv.style.alignItems = 'center'
+
+        const divArea = document.createElement('div')
+        divArea.style.display = 'flex'
+        divArea.style.flexDirection = 'column'
+        divArea.style.justifyContent = 'center'
+        divArea.style.alignItems = 'center'
+        const labelArea = document.createElement('label')
+        labelArea.innerText = 'Area Responsable'
+        const editArea = document.createElement('textarea')
+        editArea.classList.add('textarea')
+        divArea.append(labelArea, editArea)
+
+        const divLocalidad = document.createElement('div')
+        divLocalidad.style.display = 'flex'
+        divLocalidad.style.flexDirection = 'column'
+        divLocalidad.style.alignItems = 'center'
+        const label_Localidad = document.createElement('label')
+        label_Localidad.innerText = 'Localidad'
+        const editLocalidad = document.createElement('textarea')
+        editLocalidad.classList.add('textarea')
+        divLocalidad.append(label_Localidad, editLocalidad)
+
+        secondDiv.append(divArea, divLocalidad)
+
+
+        const thirdDiv = document.createElement('div')
+        thirdDiv.style.display = 'flex'
+        thirdDiv.justifyContent = 'center'
+        thirdDiv.alignItems = 'center'
+
+        const divSolicitante = document.createElement('div')
+        divSolicitante.style.display = 'flex'
+        divSolicitante.style.flexDirection = 'column'
+        divSolicitante.style.justifyContent = 'center'
+        divSolicitante.style.alignItems = 'center'
+        const labelSolicitante = document.createElement('label')
+        labelSolicitante.innerText = 'Solicitante'
+        const editSolicitante = document.createElement('textarea')
+        editSolicitante.classList.add('textarea')
+        divSolicitante.append(labelSolicitante, editSolicitante)
+
+        const divEstado = document.createElement('div')
+        divEstado.style.display = 'flex'
+        divEstado.style.flexDirection = 'column'
+        divEstado.style.justifyContent = 'center'
+        divEstado.style.alignItems = 'center'
+        const labelEstado = document.createElement('label')
+        labelEstado.innerText = 'Estado'
+        const editEstado = document.createElement('textarea')
+        editEstado.classList.add('textarea')
+        divEstado.append(labelEstado, editEstado)
+
+        thirdDiv.append(divSolicitante, divEstado)
+
+
+        const buttonsFormContainer = document.createElement('div')
+        buttonsFormContainer.classList.add('edit__form-btn')
+        buttonsFormContainer.style.margin = '3rem'
+        const cancelBtn = document.createElement('button')
+        const accceptBtn = document.createElement('button')
+        buttonsFormContainer.append(cancelBtn, accceptBtn)
+        cancelBtn.classList.add('button')
+        cancelBtn.style.backgroundColor = '#D64933'
+        cancelBtn.innerText = 'Cancelar'
+        accceptBtn.classList.add('button')
+        accceptBtn.innerText = 'Aceptar'
+        accceptBtn.style.backgroundColor = '#33a575'
+
+        editForm.append(titleEditForm, firstDiv, secondDiv, thirdDiv, buttonsFormContainer)
+        editForm.classList.add('edit__form')
+
+        divs[i].children[2].addEventListener('click', () => {
+          window.scroll({top: 100, behavior: "smooth"})
+          editForm.style.marginTop = '10rem'
+          titleEditForm.innerText = `Editar Registro con Nota: ${data[i].nota}`
+          editNota.innerText = `${data[i].nota}`
+          editFecha.innerText = `${data[i].fecha}`
+          editArea.innerText = `${data[i].areaResponsable}`
+          editLocalidad.innerText = `${data[i].localidad}`
+          editSolicitante.innerText = `${data[i].solicitanteForm}`
+          editEstado.innerText = `${data[i].estadoForm}`
+          table.insertAdjacentElement("beforebegin", editForm)
+          buttonsFormContainer.children[0].addEventListener('click', () => {
+            editForm.remove()
+          })
+          buttonsFormContainer.children[1].addEventListener('click', () => {
+            const editData = {
+              nota: editNota.value,
+              fecha: editFecha.value,
+              areaResponsable: editArea.value,
+              localidad: editLocalidad.value,
+              solicitanteForm: editSolicitante.value,
+              estadoForm: editEstado.value
+
+            }
+            fetch(`${url}/` + `${data[i]._id}`, {
+              method: 'PATCH',
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(editData)
+            })
+            alert('Registro actualizado correctamente.')
+            location.reload()
+          })
+        })
       }
     };
+
+
+  //   function eliminarFilas(filas) {
+  //     for (let i = 1; i < filas.length; i++) {
+  //         filas[i].remove()
+  //     }
+  // }
+
+  //   function ordenarRegistros(data) {
+  //     const boxFilters = document.querySelector('.box__filters-box')
+  //     let arrayFilas = prioritariosElements.querySelectorAll('tr')
+  //     let arrayObjetos = [data]
+  //     boxFilters.children[0].children[1].addEventListener('click', () => {
+  //         boxFilters.children[0].classList.toggle('menorAMayor')
+  //         eliminarFilas(arrayFilas)
+  //         let registrosOrdenados = arrayObjetos.slice()
+  //         mostrarData(registrosOrdenados[0].sort((a, b) => {
+  //             if (boxFilters.children[0].classList.length === 2) return a.nota - b.nota
+  //             return b.nota - a.nota
+
+  //         }))
+  //         let clase = boxFilters.children[0].classList.contains('menorAMayor')
+  //         if (clase) {
+  //             boxFilters.children[0].children[1].style.transform = 'rotate(180deg)'
+  //         } else {
+  //             boxFilters.children[0].children[1].style.transform = 'rotate(0deg)'
+  //         }
+  //     })
+      
+  //     boxFilters.children[1].children[1].addEventListener('click', () => {
+  //         boxFilters.children[1].classList.toggle('actualAVieja')
+  //         let registrosOrdenados = arrayObjetos.slice()
+  //         eliminarFilas(arrayFilas)
+  //         mostrarData(registrosOrdenados[0].sort((a, b) => {
+  //             let primerFecha = a.fecha
+  //             let segundaFecha = b.fecha
+  //             if (boxFilters.children[1].classList.length === 2) {
+  //                 if (primerFecha < segundaFecha) return 1
+  //                 if (primerFecha > segundaFecha) return -1
+  //                 return 0
+  //             } else {
+  //                 if (primerFecha < segundaFecha) return -1
+  //                 if (primerFecha > segundaFecha) return 1
+  //                 return 0
+  //             }
+  //         }))
+  //         let clase = boxFilters.children[1].classList.contains('actualAVieja')
+  //         if (clase) {
+  //             boxFilters.children[1].children[1].style.transform = 'rotate(180deg)'
+  //         } else {
+  //             boxFilters.children[1].children[1].style.transform = 'rotate(0deg)'
+  //         }
+  //     })
+  //     boxFilters.children[2].children[1].addEventListener('click', () => {
+  //         boxFilters.children[2].classList.toggle('aHastaZ')
+  //         let registrosOrdenados = arrayObjetos.slice()
+  //         eliminarFilas(arrayFilas)
+  //         mostrarData(registrosOrdenados[0].sort((a, b) => {
+  //             let primerCadena = a.areaResponsable
+  //             let segundaCadena = b.areaResponsable
+  //             if (boxFilters.children[2].classList.length === 2) return primerCadena.localeCompare(segundaCadena)
+  //             return segundaCadena.localeCompare(primerCadena)
+  //         }))
+  //         let clase = boxFilters.children[2].classList.contains('aHastaZ')
+  //         if (clase) {
+  //             boxFilters.children[2].children[1].style.transform = 'rotate(180deg)'
+  //         } else {
+  //             boxFilters.children[2].children[1].style.transform = 'rotate(0deg)'
+  //         }
+  //     })
+  //     boxFilters.children[3].children[1].addEventListener('click', () => {
+  //         boxFilters.children[3].classList.toggle('aHastaZ')
+  //         eliminarFilas(arrayFilas)
+  //         let registrosOrdenados = arrayObjetos.slice()
+  //         mostrarData(registrosOrdenados[0].sort((a, b) => {
+  //             let primerCadena = a.localidad
+  //             let segundaCadena = b.localidad
+  //             if (boxFilters.children[3].classList.length === 2) return primerCadena.localeCompare(segundaCadena)
+  //             return segundaCadena.localeCompare(primerCadena)
+  //         }))
+  //         let clase = boxFilters.children[3].classList.contains('aHastaZ')
+  //         if (clase) {
+  //             boxFilters.children[3].children[1].style.transform = 'rotate(180deg)'
+  //         } else {
+  //             boxFilters.children[3].children[1].style.transform = 'rotate(0deg)'
+  //         }
+  //     })
+  // }
+
   }
 
   return prioritariosElements;
