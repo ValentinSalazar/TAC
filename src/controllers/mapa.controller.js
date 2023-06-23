@@ -9,10 +9,16 @@ export default () => {
   const menuPages = document.querySelector('.menu__pages')
   const mapaWindow = window.location.hash;
   if (mapaWindow === "#/Mapa") {
-    menuPages.children[0].children[0].classList.remove("active");
-    menuPages.children[1].children[0].classList.remove("active");
-    menuPages.children[2].children[0].classList.remove("active");
-    menuPages.children[3].children[0].classList.add("active");
+    addEventListener('DOMContentLoaded', () => {
+      menuPages.children[0].children[0].classList.remove("active");
+      menuPages.children[1].children[0].classList.remove("active");
+      menuPages.children[2].children[0].classList.remove("active");
+      menuPages.children[3].children[0].classList.add("active");
+
+
+      const header = document.createElement('header')
+      document.body.append(header)
+    })
 
 
 

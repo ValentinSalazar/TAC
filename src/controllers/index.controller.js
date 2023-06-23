@@ -15,9 +15,6 @@ import viewHome from "../views/home.html";
 export default () => {
     const mainElements = document.createElement("section");
     mainElements.innerHTML = viewHome;
-    if (window.location.hash === '/') {
-
-    }
     /* Variables */
     const url = "http://localhost:1337/api/registers";
     const btnClickMain = mainElements.querySelector(".menu__btn");
@@ -218,7 +215,12 @@ export default () => {
 
     const menuPages = document.querySelector('.menu__pages')
     if (homeWindow == "" || homeWindow == "#/") {
+        const header = document.createElement('header')
+        document.body.insertAdjacentElement('afterbegin', header)
+        console.log(document.querySelector('.menu'));
         // Reseteo los estilos para que no se superpongan.
+        addEventListener('DOMContentLoaded', () => {
+        
         main.classList.remove("main__with-filters");
         aside.classList.remove("filters");
         aside.classList.add("filters-off");
@@ -262,6 +264,7 @@ export default () => {
             limpiarCampos();
             agregarLocalidades();
         });
+        })
 
         // POST Method
         addBtn.addEventListener("click", (e) => {
@@ -399,12 +402,18 @@ export default () => {
         let tbody = mainElements.getElementsByTagName('tbody')
 
 
+
+        const token = localStorage.getItem('token')
         // GET Method (General registers.)
-        fetch(url)
+        fetch(url, {
+            headers: {
+                token
+            }
+        })
             .then((res) => res.json())
             .then((registros) => {
                 mostrarData(registros)
-                ordenarRegistros(registros)
+                // ordenarRegistros(registros)
                 // buscarRegistros(registros)
             })
             .catch((err) => console.log(err));
